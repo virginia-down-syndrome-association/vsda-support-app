@@ -1,10 +1,12 @@
 
-import { useContext } from 'react'
-import { MapContext } from '@/contexts/MapContext'
+// import { useContext } from 'react'
+// import { MapContext } from '@/contexts/MapContext'
+import TabControllerDisclaimer from '../molecules/TabControllerDisclaimer'
+import TabControllerFilters from '../molecules/TabControllerFilters'
 import '../style.scss'
 
 export default function ExploreTabController (props) {
-  const { mapView } = useContext(MapContext)
+  // const { mapView } = useContext(MapContext)
   // invoke useEffects to update local data?
   // filters should both interact with map AND update local data
 
@@ -12,7 +14,8 @@ export default function ExploreTabController (props) {
     <>
       <h2> View Program Participants across VA </h2>
       <div className='tab__container'>
-        TabController Container
+        <TabControllerDisclaimer />
+        <TabControllerFilters />
       </div>
     </>
   )

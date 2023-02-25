@@ -19,3 +19,12 @@
   display: flex;
   flex-direction: column;
 }
+
+.disclaimer__header{
+  display: flex;
+  flex-direction: column;
+  .header {
+    height: auto;
+  }
+ 
+}
