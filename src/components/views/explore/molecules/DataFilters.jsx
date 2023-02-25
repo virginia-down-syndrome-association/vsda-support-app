@@ -1,10 +1,7 @@
-
-// import { useContext } from 'react'
-// import { MapContext } from '@/contexts/MapContext'
 import { Dropdown } from 'semantic-ui-react'
 import '../style.scss'
 
-export default function ExploreTabController (props) {
+export default function DataFilters (props) {
   // const { mapView } = useContext(MapContext)
   // invoke useEffects to update local data?
   // filters should both interact with map AND update local data

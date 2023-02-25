@@ -23,8 +23,19 @@
 .disclaimer__header{
   display: flex;
   flex-direction: column;
+  padding-bottom: 1.5rem !important;
   .header {
     height: auto;
   }
  
+}
+
+.filterWarning__container{
+  min-height: fit-content !important;
+}
+
+.tabContainer__wrapper{
+  display: flex;
+  flex-grow: 1;
+  justify-content: space-around;;
 }

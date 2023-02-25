@@ -1,7 +1,7 @@
 
 import { Grid } from 'semantic-ui-react'
 import MapViewComponent from '@/components/global/organisms/map/MapViewComponent'
-import ExploreTabController from './organisms/ExploreTabController'
+import ExploreDataSidepane from './organisms/ExploreDataSidepane'
 import { useContext, useEffect } from 'react'
 import { MapContext } from '@/contexts/MapContext'
 import './style.scss'
@@ -17,7 +17,7 @@ export default function Explore (props) {
     <>
       <Grid className='full-height' columns='two' divided>
         <Grid.Column className='grid-col' width='5'>
-          <ExploreTabController />
+          <ExploreDataSidepane />
         </Grid.Column>
         <Grid.Column className='grid-col' width='11'>
           <MapViewComponent
