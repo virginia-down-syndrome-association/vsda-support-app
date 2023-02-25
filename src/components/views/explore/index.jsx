@@ -1,20 +1,25 @@
-import * as React from 'react'
+
 import { Grid } from 'semantic-ui-react'
-import MapContainer from '@/components/views/explore/organisms/MapContainer'
+import MapViewComponent from '@/components/global/organisms/map/MapViewComponent'
+import { useContext } from 'react'
+import { MapContext } from '@/contexts/MapContext'
 
 export default function Explore (props) {
+  const { setMapView } = useContext(MapContext)
+
   return (
-    <React.Fragment>
-      <React.Fragment>
-        <Grid className='full-height' columns='two' divided>
-          <Grid.Column className='gridColumn' width='5'>
-            Sidebar goes here.
-          </Grid.Column>
-          <Grid.Column width='10'>
-            <MapContainer />
-          </Grid.Column>
-        </Grid>
-      </React.Fragment>
-    </React.Fragment>
+    <>
+      <Grid className='full-height' columns='two' divided>
+        <Grid.Column className='gridColumn' width='5'>
+          Sidebar goes here.
+        </Grid.Column>
+        <Grid.Column width='10'>
+          <MapViewComponent
+            mapViewProps={{}}
+            onMapViewLoad={setMapView}
+          />
+        </Grid.Column>
+      </Grid>
+    </>
   )
 }

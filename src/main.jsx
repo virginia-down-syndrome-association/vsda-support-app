@@ -3,6 +3,7 @@ import { BrowserRouter } from 'react-router-dom'
 import App from './App'
 import store from './store'
 import { Provider } from 'react-redux'
+import MapContextProvider from '@/contexts/MapContext'
 import AuthGate from '@/components/global/organisms/auth/AuthGate'
 
 import {
@@ -25,9 +26,11 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   // <React.StrictMode> comment strict mode because it double renders during dev https://stackoverflow.com/questions/48846289/why-is-my-react-component-is-rendering-twice
   <BrowserRouter basename={basename}>
     <Provider store={store}>
-      <AuthGate>
-        <App />
-      </AuthGate>
+      <MapContextProvider>
+        <AuthGate>
+          <App />
+        </AuthGate>
+      </MapContextProvider>
     </Provider>
   </BrowserRouter>
   // </React.StrictMode>

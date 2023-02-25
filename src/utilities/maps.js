@@ -41,9 +41,9 @@ export async function initView (container, map) {
 
   app.view = view
 
-  app.view.when(() => {
-    console.log('bookmark example is neat from PS2022 work')
-  })
+  // app.view.when(() => {
+  //   console.log('bookmark example is neat from PS2022 work')
+  // })
 
   return view
 }
