@@ -1,7 +1,7 @@
-import React from 'react';
+import React from 'react'
 import { Grid } from 'semantic-ui-react'
 
-export default function Research(props) {
+export default function Research (props) {
   return (
     <React.Fragment>
       <React.Fragment>
@@ -15,5 +15,5 @@ export default function Research(props) {
         </Grid>
       </React.Fragment>
     </React.Fragment>
-  );
+  )
 }

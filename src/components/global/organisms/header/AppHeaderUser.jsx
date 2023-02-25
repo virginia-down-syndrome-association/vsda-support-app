@@ -1,10 +1,8 @@
-import React from 'react'
 import { Dropdown, Icon } from 'semantic-ui-react'
 import { signOut } from '@/utilities/oauth'
 import { useSelector } from 'react-redux'
 
-export default function UserMenu() {
-
+export default function UserMenu () {
   const userId = useSelector((state) => state.auth.credential.userId)
 
   const trigger = (
@@ -12,9 +10,9 @@ export default function UserMenu() {
       <Icon name='user' /> Welcome. {userId}
     </span>
   )
-  
-  const handleClick = (e) => { if (e.target.innerText === 'Sign Out') signOut() };
-  
+
+  const handleClick = (e) => { if (e.target.innerText === 'Sign Out') signOut() }
+
   const options = [
     {
       key: 'user',
@@ -23,11 +21,11 @@ export default function UserMenu() {
           Signed in as <strong>{userId}</strong>
         </span>
       ),
-      disabled: true,
+      disabled: true
     },
     { key: 'faq', text: 'FAQ', event: 'nav-faq' },
     { key: 'resources', text: 'Related Resources', event: 'nav-resources' },
-    { key: 'sign-out', text: 'Sign Out', event: 'sign-out' },
+    { key: 'sign-out', text: 'Sign Out', event: 'sign-out' }
   ]
 
   return (

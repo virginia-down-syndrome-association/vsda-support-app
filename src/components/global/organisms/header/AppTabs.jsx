@@ -5,14 +5,13 @@ import { Menu } from 'semantic-ui-react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import './style.scss'
 
-export default function NavTabs() {
-
+export default function NavTabs () {
   // router
   const navigate = useNavigate()
   const location = useLocation()
   const path = location.pathname.split('/')[1]
 
-    /* state */
+  /* state */
   // local
   const [activeTab, setActiveTab] = React.useState(path)
 
@@ -52,5 +51,5 @@ export default function NavTabs() {
         />
       </div>
     </>
-    )
-  }
+  )
+}

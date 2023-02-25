@@ -5,7 +5,7 @@ import Manage from '@/components/views/manage'
 import Layout from '@/components/layout/Layout'
 import { Navigate, Routes, Route } from 'react-router-dom'
 
-export default function App() {
+export default function App () {
   return (
     <Layout>
       <Routes>
