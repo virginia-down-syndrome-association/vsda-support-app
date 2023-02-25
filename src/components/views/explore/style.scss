@@ -1,0 +1,21 @@
+.grid-col:first-of-type{
+  padding: 2rem !important;
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.grid-col:last-of-type{
+  padding: 0rem !important;
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+
+.tab__container{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
