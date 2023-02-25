@@ -4,7 +4,6 @@ import { BrowserRouter } from "react-router-dom";
 import App from './App'
 import store from './store'
 import { Provider } from 'react-redux'
-import MapContextProvider from '@/contexts/MapContext';
 import AuthGate from '@/components/global/organisms/auth/AuthGate'
 
 import {
@@ -27,13 +26,11 @@ let basename = ''; // refer to building-stunning-webapp repo. Eval for removal.
 ReactDOM.createRoot(document.getElementById('root')).render(
   //<React.StrictMode> comment strict mode because it double renders during dev https://stackoverflow.com/questions/48846289/why-is-my-react-component-is-rendering-twice
   <BrowserRouter basename={basename}>
-    <MapContextProvider>
       <Provider store={store}>
         <AuthGate>
           <App />
         </AuthGate>
       </Provider>
-    </MapContextProvider>
   </BrowserRouter>
   //</React.StrictMode>
 )

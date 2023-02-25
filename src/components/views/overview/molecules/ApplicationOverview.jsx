@@ -11,19 +11,11 @@ export default function ApplicationOverview(props) {
           <List.Content>
             <List.Description className='list-description'>
               <a>
-                <b>Explore Page</b>
+                <b>Virginia Down Syndrome Association</b>
               </a>{' '}
-              enables you to see real-time recommendations on where to go and how long it might take.
-            </List.Description>
-          </List.Content>
-        </List.Item>
-        <List.Item>
-          <List.Content>
-            <List.Description className='list-description'>
-              <a>
-                <b>Research Page</b>
-              </a>{' '}
-               provides some fun insights into where we're going and how. 
+              is an organization that offers our members lifelong care and support across Virginia including 52 counties and 16 cities,
+              stretching from our home base in Richmond to Charlottesville, Williamsburg, Fredericksburg, the Central Shenandoah Valley 
+              and all the way down to the Virginia State Border.
             </List.Description>
           </List.Content>
         </List.Item>
