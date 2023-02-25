@@ -1,0 +1,16 @@
+.gridColumn{
+  padding: 0px !important;
+  height: 100%;
+  position: relative;
+}
+
+.tab__container{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.first-item {
+  padding-left: 3rem !important;
+}

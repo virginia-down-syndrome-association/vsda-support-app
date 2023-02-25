@@ -1,0 +1,4 @@
+.view__container {
+  height: calc(100% - var(--app-header-height));
+  position: relative; /*style:tmo*/
+}

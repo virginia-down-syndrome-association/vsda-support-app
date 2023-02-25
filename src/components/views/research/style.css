@@ -1,0 +1,40 @@
+.task-list-item {
+  padding-top: 1rem !important;
+  padding-bottom: 1rem !important;
+}
+
+.first-col {
+  padding-top: 3rem !important;
+  padding-left: 2rem !important;
+}
+
+.second-col{
+  padding-top: 3rem !important;
+}
+
+.numbers__container{
+  padding-left: 2rem !important;
+}
+
+.task-description{
+  font-size: 1rem;
+}
+
+.progress-memo{
+  line-height: 2;
+  font-weight: 300 !important;
+  padding-right: 1rem;
+  font-size: 1.25rem;
+}
+
+
+.progress-memo2{
+  line-height: 1.5;
+  font-weight: 300 !important;
+  padding-right: 1rem;
+  font-size: 1.25rem;
+}
+
+.numbers-header{
+  padding-left: 2rem;
+}

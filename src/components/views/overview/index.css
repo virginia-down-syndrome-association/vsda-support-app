@@ -1,0 +1,31 @@
+.overviewView__container {
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.overviewHeader {
+  display: flex;
+  flex-direction: column !important;
+}
+
+.overviewHeaderSubtitle {
+  font-size: 1.25rem;
+  font-weight: 300;
+  margin-top: 0.5rem;
+}
+
+.overviewHeaderSubtitle {
+  margin-bottom: 0.25rem;
+}
+
+.list-description {
+  font-size: 1rem;
+  padding: .5rem;
+}
+
+.logo-container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}

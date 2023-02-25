@@ -1,0 +1,17 @@
+.appHeaderMenu {
+  /* padding-bottom: .5rem; */
+  height: var(--app-header-height);
+  align-items: center;
+  padding-left: 3rem;
+  box-sizing: border-box;
+}
+
+.appHeaderTabs {
+  margin-right: 3rem;
+}
+
+/* hack to get login on oneline. refactor to responsive ideally */
+.UserMenu__container {
+  min-width: 300px;
+  margin-top: 1rem;
+}
