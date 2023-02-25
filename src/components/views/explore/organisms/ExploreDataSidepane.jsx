@@ -8,9 +8,11 @@ import '../style.scss'
 export default function ExploreDataSidepane (props) {
   return (
     <>
-      <h2> View Program Participants across VA </h2>
-      <Divider />
-      <div className='tab__container'>
+      <div className='sidepaneHeader__container'>
+        <h2> View Program Participants across VA </h2>
+        <Divider />
+      </div>
+      <div className='tab__wrapper'>
         <TabControllerDisclaimer />
         <TabController />
       </div>

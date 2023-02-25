@@ -1,3 +1,9 @@
+.grid-col{
+  display: flex !important;
+  flex-direction: column;
+  overflow: hidden; //hack
+}
+
 .grid-col:first-of-type{
   padding: 2rem !important;
   height: 100%;
@@ -13,10 +19,9 @@
 }
 
 
-.tab__container{
-  height: 100%;
-  width: 100%;
+.tab__wrapper{
   display: flex;
+  flex: 1;
   flex-direction: column;
 }
 
@@ -37,5 +42,55 @@
 .tabContainer__wrapper{
   display: flex;
   flex-grow: 1;
-  justify-content: space-around;;
+  // justify-content: space-around;
+  // width: 100%;
+}
+
+.tab__container{
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  width: 100%;
+}
+
+.sidepaneHeader__container{
+  position: relative;
+  flex: 0;
+}
+
+
+// pattern: overflow scroll with flex https://stackoverflow.com/questions/14962468/how-can-i-combine-flexbox-and-vertical-scroll-in-a-full-height-app
+.participantList__container{
+  flex: 1 1 auto;
+  overflow-y: auto;
+  height: 0px;
+}
+
+.dataFilter__container{
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 2rem 1rem 2rem;
+  flex: 1 1 auto;
+  overflow-y: auto;
+  height: 0px;
+
+  .header{
+    height: auto;
+  }
+  .ui.message{
+    margin-bottom: 0px !important;
+  }
+
+  h3{
+    margin-bottom: 0px !important;
+  }
+}
+
+.tabContent__container{
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  border-left: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
+  border-right: 1px solid lightgray;
 }

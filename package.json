@@ -24,7 +24,8 @@
     "react-toastify": "^9.1.1",
     "redux": "^4.2.0",
     "semantic-ui-css": "^2.5.0",
-    "semantic-ui-react": "^2.1.4"
+    "semantic-ui-react": "^2.1.4",
+    "semantic-ui-react-slider": "^1.1.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.26",

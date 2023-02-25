@@ -1,35 +1,49 @@
-import { Icon, Tab } from 'semantic-ui-react'
+import { Tab } from 'semantic-ui-react'
 import ParticipantList from '../molecules/ParticipantList'
 import DataFilters from '../molecules/DataFilters'
 import '../style.scss'
 
-export default function TabController () {
+const getDataFilters = () => {
+  return (
+    <div className="tabContent__container">
+      <DataFilters />
+    </div>
+  )
+}
+
+const getParticipantList = () => {
+  return (
+    <div className="tabContent__container">
+      <ParticipantList activeView={false} />
+    </div>
+  )
+}
+
+export default function TabController() {
   const panes = [
     {
       menuItem: {
         key: 'filters-item',
         content: 'Filters',
+        icon: 'filter',
         className: 'first-item'
       },
-      render: () => <DataFilters />
+      render: () => getDataFilters()
     },
     {
       menuItem: {
         key: 'active-queue',
+        icon: 'user circle outline',
         content: 'Participant List'
       },
-      render: () => <ParticipantList activeView={false} />
+      render: () => getParticipantList()
     }
   ]
 
   return (
-    <div className='tabContainer__wrapper'>
-      <Tab
-        className='tab__container'
-        menu={{ borderless: true, secondary: true }}
-        panes={panes}
-      />
-      <Icon name='warning circle' />
-    </div>
+    <Tab
+      className='tab__container'
+      panes={panes}
+    />
   )
 }
