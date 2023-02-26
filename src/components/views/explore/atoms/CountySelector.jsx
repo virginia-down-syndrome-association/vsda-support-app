@@ -1,9 +1,12 @@
 import { Dropdown } from 'semantic-ui-react'
-import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { setCounty } from '@/store/reducers/filters'
 
 export default function CountySelector () {
-  const [currentCounty, setCurrentCounty] = useState('all')
+  const dispatch = useDispatch()
+  const { county } = useSelector(state => state.filters)
 
+  // TODO: Get county options from the API
   const countryOptions = [
     { key: 'all', value: 'all', text: 'All Counties' },
     { key: 'fredericksburg', value: 'fredericksburg', text: 'City of Fredericksburg' },
@@ -18,8 +21,8 @@ export default function CountySelector () {
       selection
       search
       options={countryOptions}
-      value={currentCounty}
-      onChange={(e, { value }) => setCurrentCounty(value)}
+      value={county}
+      onChange={(e, { value }) => dispatch(setCounty(value))}
     />
   )
 }

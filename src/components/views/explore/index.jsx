@@ -2,16 +2,19 @@
 import { Grid } from 'semantic-ui-react'
 import MapViewComponent from '@/components/global/organisms/map/MapViewComponent'
 import ExploreDataSidepane from './organisms/ExploreDataSidepane'
+import { addConstituentsLayer } from '@/utilities/maps'
 import { useContext, useEffect } from 'react'
 import { MapContext } from '@/contexts/MapContext'
 import './style.scss'
 
 export default function Explore (props) {
-  const { mapView, setMapView } = useContext(MapContext)
+  const { mapView, map, setConstituentsLayer } = useContext(MapContext)
 
   useEffect(() => {
-    console.log(mapView)
-  }, [mapView])
+    if (mapView?.ready && map) {
+      addConstituentsLayer(map, mapView, setConstituentsLayer)
+    }
+  }, [mapView, map])
 
   return (
     <>
@@ -22,7 +25,7 @@ export default function Explore (props) {
         <Grid.Column className='grid-col' width='11'>
           <MapViewComponent
             mapViewProps={{}}
-            onMapViewLoad={setMapView}
+            // onMapViewLoad={setMapView}
           />
         </Grid.Column>
       </Grid>

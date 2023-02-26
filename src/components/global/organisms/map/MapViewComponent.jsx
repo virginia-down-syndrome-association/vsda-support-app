@@ -2,18 +2,23 @@
 import MapView from '@arcgis/core/views/MapView'
 import {
   useRef,
-  useEffect
+  useEffect,
+  useContext
 } from 'react'
 import Map from '@arcgis/core/WebMap'
 import Extent from '@arcgis/core/geometry/Extent'
+import { addContextStates } from '@/utilities/maps'
+import { MapContext } from '@/contexts/MapContext'
 import { MapConfig } from '@/constants/appConfig'
 import './MapViewComponent.scss'
 
 export default function MapViewComponent ({
   mapProps,
-  mapViewProps,
-  onMapViewLoad
+  mapViewProps
+  // onMapViewLoad
 }) {
+  const { setMapView, setMap } = useContext(MapContext)
+
   const mapContainer = useRef(null)
 
   const mapOptions = {
@@ -40,11 +45,17 @@ export default function MapViewComponent ({
   )
 
   useEffect(() => {
-    mapViewRef.current.when(() => {
-      // setMapView(mapViewRef.current)
-      onMapViewLoad?.(mapViewRef.current)
+    mapRef.current.when(() => {
+      setMap(mapRef.current)
     })
-  }, [onMapViewLoad])
+  }, [mapRef])
+
+  useEffect(() => {
+    mapViewRef.current.when(() => {
+      setMapView(mapViewRef.current)
+      addContextStates(mapRef.current)
+    })
+  }, [setMapView])
 
   useEffect(() => {
     if (mapContainer.current) {

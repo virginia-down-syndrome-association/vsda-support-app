@@ -19,7 +19,7 @@ const getParticipantList = () => {
   )
 }
 
-export default function TabController() {
+export default function TabController () {
   const panes = [
     {
       menuItem: {

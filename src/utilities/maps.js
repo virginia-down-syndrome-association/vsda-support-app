@@ -3,6 +3,7 @@ import MapView from '@arcgis/core/views/MapView'
 import Extent from '@arcgis/core/geometry/Extent'
 import BasemapToggle from '@arcgis/core/widgets/BasemapToggle'
 import Search from '@arcgis/core/widgets/Search'
+import FeatureLayer from '@arcgis/core/layers/FeatureLayer'
 import { MapConfig } from '@/constants/appConfig'
 
 const app = {}
@@ -46,6 +47,26 @@ export async function initView (container, map) {
   // })
 
   return view
+}
+
+export const addConstituentsLayer = (map, view, setConstituentsLayer) => {
+  const url = 'https://services3.arcgis.com/eyU1lVcSnKSGItET/arcgis/rest/services/constituents/FeatureServer/0'
+  const constituentsLayer = new FeatureLayer({
+    url
+  })
+  map.add(constituentsLayer)
+  view.whenLayerView(constituentsLayer).then((layerView) => {
+    setConstituentsLayer(layerView)
+  })
+}
+
+export const addContextStates = (map) => {
+  const states = new FeatureLayer({
+    url: 'https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/USA_States_Generalized_Boundaries/FeatureServer/0',
+    definitionExpression: "STATE_ABBR = 'VA'"
+  })
+
+  map.add(states)
 }
 
 export async function initMap (config) {
