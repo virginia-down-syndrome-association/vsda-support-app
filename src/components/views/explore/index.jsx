@@ -5,16 +5,24 @@ import ExploreDataSidepane from './organisms/ExploreDataSidepane'
 import { addConstituentsLayer } from '@/utilities/maps'
 import { useContext, useEffect } from 'react'
 import { MapContext } from '@/contexts/MapContext'
+import { useSelector } from 'react-redux'
+import { updateConstituentFilter } from '@/utilities/data'
 import './style.scss'
 
 export default function Explore (props) {
-  const { mapView, map, setConstituentsLayer } = useContext(MapContext)
-
+  const { mapView, map, setConstituentsLayer, constituentsLayer } = useContext(MapContext)
+  const state = useSelector(state => state.filters)
   useEffect(() => {
     if (mapView?.ready && map) {
       addConstituentsLayer(map, mapView, setConstituentsLayer)
     }
   }, [mapView, map])
+
+  useEffect(() => {
+    if (constituentsLayer) {
+      updateConstituentFilter(constituentsLayer)
+    }
+  }, [constituentsLayer, state])
 
   return (
     <>

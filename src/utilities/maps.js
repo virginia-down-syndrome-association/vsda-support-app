@@ -50,9 +50,23 @@ export async function initView (container, map) {
 }
 
 export const addConstituentsLayer = (map, view, setConstituentsLayer) => {
+  const constituentRenderer = {
+    type: 'simple', // autocasts as new SimpleRenderer()
+    symbol: {
+      type: 'simple-marker', // autocasts as new SimpleMarkerSymbol()
+      size: 10,
+      color: 'yellow',
+      outline: { // autocasts as new SimpleLineSymbol()
+        width: 3,
+        color: 'gray'
+      }
+    }
+  }
+
   const url = agolItems.rest.constituents
   const constituentsLayer = new FeatureLayer({
-    url
+    url,
+    renderer: constituentRenderer
   })
   map.add(constituentsLayer)
   view.whenLayerView(constituentsLayer).then((layerView) => {
@@ -75,4 +89,4 @@ export async function initMap (config) {
   const map = new Map(config)
   app.map = map // should set in redux instead
   return map
-};
+}

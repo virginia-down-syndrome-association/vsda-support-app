@@ -9,9 +9,9 @@ export default function CountySelector () {
   // TODO: Get county options from the API
   const countryOptions = [
     { key: 'all', value: 'all', text: 'All Counties' },
-    { key: 'fredericksburg', value: 'fredericksburg', text: 'City of Fredericksburg' },
-    { key: 'stafford', value: 'stafford', text: 'Stafford' },
-    { key: 'henrico', value: 'henrico', text: 'henrico' }
+    { key: 'Fredericksburg', value: 'Fredericksburg', text: 'City of Fredericksburg' },
+    { key: 'Stafford', value: 'Stafford', text: 'Stafford' },
+    { key: 'Henrico', value: 'Henrico', text: 'Henrico' }
   ]
 
   return (

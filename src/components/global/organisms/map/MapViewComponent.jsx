@@ -52,8 +52,8 @@ export default function MapViewComponent ({
 
   useEffect(() => {
     mapViewRef.current.when(() => {
-      setMapView(mapViewRef.current)
       addContextStates(mapRef.current)
+      setMapView(mapViewRef.current)
     })
   }, [setMapView])
 
