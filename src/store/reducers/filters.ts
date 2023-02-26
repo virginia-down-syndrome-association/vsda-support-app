@@ -18,7 +18,7 @@ type FilterState = {
 
 const initialState: FilterState = {
   minAge: 0,
-  maxAge: 2020,
+  maxAge: 100,
   county: 'all',
   sex: 'all'
 }

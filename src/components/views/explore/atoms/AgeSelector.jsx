@@ -15,6 +15,7 @@ export default function AgeSelector () {
 
   useEffect(() => {
     if (constituentsLayer) {
+
       constituentsLayer.filter = {
         // eslint-disable-next-line quotes
         where: `Age >= ${minAge} AND Age <= ${maxAge}`
@@ -23,6 +24,6 @@ export default function AgeSelector () {
   }, [minAge, maxAge, constituentsLayer])
 
   return (
-    <SliderView onSliderValuesChange={onAgeChange} sliderMinValue={1990} sliderMaxValue={2020} />
+    <SliderView onSliderValuesChange={onAgeChange} sliderMinValue={0} sliderMaxValue={100} />
   )
 }

@@ -4,7 +4,7 @@ import Extent from '@arcgis/core/geometry/Extent'
 import BasemapToggle from '@arcgis/core/widgets/BasemapToggle'
 import Search from '@arcgis/core/widgets/Search'
 import FeatureLayer from '@arcgis/core/layers/FeatureLayer'
-import { MapConfig } from '@/constants/appConfig'
+import { MapConfig, agolItemsPublic, agolItems } from '@/constants/appConfig'
 
 const app = {}
 
@@ -50,7 +50,7 @@ export async function initView (container, map) {
 }
 
 export const addConstituentsLayer = (map, view, setConstituentsLayer) => {
-  const url = 'https://services3.arcgis.com/eyU1lVcSnKSGItET/arcgis/rest/services/constituents/FeatureServer/0'
+  const url = agolItems.rest.constituents
   const constituentsLayer = new FeatureLayer({
     url
   })
@@ -61,8 +61,9 @@ export const addConstituentsLayer = (map, view, setConstituentsLayer) => {
 }
 
 export const addContextStates = (map) => {
+  const url = agolItemsPublic.rest.states
   const states = new FeatureLayer({
-    url: 'https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/USA_States_Generalized_Boundaries/FeatureServer/0',
+    url,
     definitionExpression: "STATE_ABBR = 'VA'"
   })
 
