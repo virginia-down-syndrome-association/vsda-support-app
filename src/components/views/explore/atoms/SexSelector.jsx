@@ -1,8 +1,24 @@
 import { Dropdown } from 'semantic-ui-react'
-import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { setSex } from '@/store/reducers/filters'
 
 export default function SexSelector () {
-  const [currentSex, setCurrentSex] = useState('male')
+  const dispatch = useDispatch()
+  // const { constituentsLayer } = useContext(MapContext)
+  const { sex } = useSelector(state => state.filters)
+
+  // useEffect(() => {
+  //   if (constituentsLayer) {
+  //     if (sex === 'male' || sex === 'female') {
+  //       constituentsLayer.filter = {
+  //         // eslint-disable-next-line quotes
+  //         where: `Sex = '${sex}'`
+  //       }
+  //     } else {
+  //       constituentsLayer.filter = ''
+  //     }
+  //   }
+  // }, [sex, constituentsLayer])
 
   const sexOptions = [
     {
@@ -28,8 +44,8 @@ export default function SexSelector () {
       fluid
       selection
       options={sexOptions}
-      value={currentSex}
-      onChange={(e, { value }) => setCurrentSex(value)}
+      value={sex}
+      onChange={(e, { value }) => dispatch(setSex(value))}
     />
   )
 }

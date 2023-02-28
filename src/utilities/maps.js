@@ -3,7 +3,8 @@ import MapView from '@arcgis/core/views/MapView'
 import Extent from '@arcgis/core/geometry/Extent'
 import BasemapToggle from '@arcgis/core/widgets/BasemapToggle'
 import Search from '@arcgis/core/widgets/Search'
-import { MapConfig } from '@/constants/appConfig'
+import FeatureLayer from '@arcgis/core/layers/FeatureLayer'
+import { MapConfig, agolItemsPublic, agolItems } from '@/constants/appConfig'
 
 const app = {}
 
@@ -48,9 +49,44 @@ export async function initView (container, map) {
   return view
 }
 
+export const addConstituentsLayer = (map, view, setConstituentsLayer) => {
+  const constituentRenderer = {
+    type: 'simple', // autocasts as new SimpleRenderer()
+    symbol: {
+      type: 'simple-marker', // autocasts as new SimpleMarkerSymbol()
+      size: 10,
+      color: 'yellow',
+      outline: { // autocasts as new SimpleLineSymbol()
+        width: 3,
+        color: 'gray'
+      }
+    }
+  }
+
+  const url = agolItems.rest.constituents
+  const constituentsLayer = new FeatureLayer({
+    url,
+    renderer: constituentRenderer
+  })
+  map.add(constituentsLayer)
+  view.whenLayerView(constituentsLayer).then((layerView) => {
+    setConstituentsLayer(layerView)
+  })
+}
+
+export const addContextStates = (map) => {
+  const url = agolItemsPublic.rest.states
+  const states = new FeatureLayer({
+    url,
+    definitionExpression: "STATE_ABBR = 'VA'"
+  })
+
+  map.add(states)
+}
+
 export async function initMap (config) {
   if (app.map) return
   const map = new Map(config)
   app.map = map // should set in redux instead
   return map
-};
+}
