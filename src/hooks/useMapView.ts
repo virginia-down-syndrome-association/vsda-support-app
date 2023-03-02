@@ -1,10 +1,11 @@
 import MapView from '@arcgis/core/views/MapView'
 import Map from '@arcgis/core/WebMap'
 import Extent from '@arcgis/core/geometry/Extent'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useWatchEffect } from './useWatchEffect'
 import { addContextStates } from '@/utilities/maps'
 import { MapConfig } from '../constants/appConfig'
+import { whenOnce } from '@arcgis/core/core/reactiveUtils'
 /**
  * Hook to create a MapView instance
  * @param mapProps The props to pass to the Map constructor
@@ -37,10 +38,17 @@ export function useMapView (
   const mapViewRef = useRef<MapView>(
     new MapView({ ...mapViewOptions, map: mapRef.current })
   )
+
+  // eslint-disable-next-line @typescript-eslint/no-floating-promises
+  whenOnce(
+    () => mapViewRef?.current?.ready)
+    .then(() => {
+      console.log('ready')
+    })
+
   useWatchEffect(
     () => mapViewRef.current.ready,
-    (val) => {
-      console.log(val) // this is falsy
+    () => {
       setMapView(mapViewRef.current)
     }
   )

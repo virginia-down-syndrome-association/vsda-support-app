@@ -9,7 +9,6 @@ import './MapViewComponent.scss'
 export default function MapViewComponent ({
   mapProps,
   mapViewProps
-  // onMapViewLoad
 }) {
   const mapContainer = useRef(null)
 
@@ -22,8 +21,12 @@ export default function MapViewComponent ({
   )
 
   useEffect(() => {
-    if (mapview && mapview.ready) {
-      console.log('Currently unreachable.')
+    console.log(mapview)
+    if (mapview) {
+      console.log(mapview)
+      mapview.when(() => {
+        console.log('mapview ready')
+      })
     }
   }, [mapview])
 
