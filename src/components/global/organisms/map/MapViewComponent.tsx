@@ -14,6 +14,8 @@ import { useDispatch } from 'react-redux'
 
 import { setMapView } from '@/store/reducers/map'
 import { MapConfig } from '../../../../constants/appConfig'
+import { type FeatureLayerConfig } from '../../../../constants/layerConfig'
+
 import './MapViewComponent.scss'
 
 export const MapContext = createContext<MapView | undefined>(new MapView())
@@ -24,12 +26,14 @@ type MapViewComponentProps = {
   mapProps: __esri.WebMapProperties
   mapViewProps: __esri.MapViewProperties
   mapConsumer?: MapViewConsumers
+  layers?: FeatureLayerConfig[]
 }
 
 export default function MapViewComponent ({
   mapProps,
   mapViewProps,
-  mapConsumer
+  mapConsumer,
+  layers
 }: MapViewComponentProps) {
   const dispatch = useDispatch()
   const mapContainer = useRef<HTMLDivElement>(null)
@@ -64,6 +68,14 @@ export default function MapViewComponent ({
       mapViewRef.current.container = mapContainer.current
     }
   }, [])
+
+  useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    if (view) {
+      console.log('map view available within MapViewComponent')
+      console.log(layers)
+    }
+  }, [view])
 
   return (
     <MapContext.Provider value={view}>

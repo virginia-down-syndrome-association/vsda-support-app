@@ -49,32 +49,6 @@ export async function initView (container, map) {
   return view
 }
 
-export const addConstituentsLayer = (mapView) => {
-  const constituentRenderer = {
-    type: 'simple', // autocasts as new SimpleRenderer()
-    symbol: {
-      type: 'simple-marker', // autocasts as new SimpleMarkerSymbol()
-      size: 10,
-      color: 'yellow',
-      outline: { // autocasts as new SimpleLineSymbol()
-        width: 3,
-        color: 'gray'
-      }
-    }
-  }
-
-  const url = agolItems.rest.constituents
-  const constituentsLayer = new FeatureLayer({
-    url,
-    renderer: constituentRenderer
-  })
-  mapView.map.add(constituentsLayer)
-  mapView.whenLayerView(constituentsLayer).then((layerView) => {
-    // setConstituentsLayer(layerView)
-    console.log('layerview is ready to be set and accessed'')
-  })
-}
-
 export const addContextStates = (map) => {
   const url = agolItemsPublic.rest.states
   const states = new FeatureLayer({
