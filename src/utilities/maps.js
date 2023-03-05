@@ -49,7 +49,7 @@ export async function initView (container, map) {
   return view
 }
 
-export const addConstituentsLayer = (map, view, setConstituentsLayer) => {
+export const addConstituentsLayer = (mapView) => {
   const constituentRenderer = {
     type: 'simple', // autocasts as new SimpleRenderer()
     symbol: {
@@ -68,9 +68,10 @@ export const addConstituentsLayer = (map, view, setConstituentsLayer) => {
     url,
     renderer: constituentRenderer
   })
-  map.add(constituentsLayer)
-  view.whenLayerView(constituentsLayer).then((layerView) => {
-    setConstituentsLayer(layerView)
+  mapView.map.add(constituentsLayer)
+  mapView.whenLayerView(constituentsLayer).then((layerView) => {
+    // setConstituentsLayer(layerView)
+    console.log('layerview is ready to be set and accessed'')
   })
 }
 
