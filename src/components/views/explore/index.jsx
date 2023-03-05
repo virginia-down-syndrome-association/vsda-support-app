@@ -4,6 +4,7 @@ import MapViewComponent from '@/components/global/organisms/map/MapViewComponent
 import ExploreDataSidepane from './organisms/ExploreDataSidepane'
 import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
+import { setMapView } from '@/store/reducers/map'
 import './style.scss'
 
 export default function Explore (props) {
@@ -24,6 +25,8 @@ export default function Explore (props) {
         <Grid.Column className='grid-col' width='11'>
           <MapViewComponent
             mapViewProps={{}}
+            mapProps={{ basemap: 'gray-vector' }}
+            onMapViewLoad={setMapView}
           />
         </Grid.Column>
       </Grid>
