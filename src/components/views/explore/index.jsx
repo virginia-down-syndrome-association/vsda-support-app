@@ -21,6 +21,7 @@ export default function Explore (props) {
       <Grid className='full-height' columns='two' divided>
         <Grid.Column className='grid-col' width='5'>
           <ExploreDataSidepane />
+          {view?.ready && <div>Map is ready</div>}
         </Grid.Column>
         <Grid.Column className='grid-col' width='11'>
           <MapViewComponent

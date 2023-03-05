@@ -8,26 +8,34 @@ import React, {
   createContext,
   useState
 } from 'react'
+
+// redux
+import { useDispatch } from 'react-redux'
+
+import { setMapView } from '@/store/reducers/map'
 import { MapConfig } from '../../../../constants/appConfig'
 import './MapViewComponent.scss'
 
 export const MapContext = createContext<MapView | undefined>(new MapView())
 
+type MapViewConsumers = 'explore' | 'analysis' | 'planning'
+
 type MapViewComponentProps = {
   mapProps: __esri.WebMapProperties
   mapViewProps: __esri.MapViewProperties
-  onMapViewLoad?: (map: MapView) => void
+  mapConsumer?: MapViewConsumers
 }
 
 export default function MapViewComponent ({
   mapProps,
   mapViewProps,
-  onMapViewLoad
+  mapConsumer
 }: MapViewComponentProps) {
+  const dispatch = useDispatch()
   const mapContainer = useRef<HTMLDivElement>(null)
   const mapRef = useRef<Map>(new Map(mapProps))
 
-  const [mapView, setMapView] = useState<MapView>()
+  const [view, setView] = useState<MapView>()
 
   const mapViewOptions = {
     ...mapViewProps,
@@ -45,11 +53,10 @@ export default function MapViewComponent ({
 
   useEffect(() => {
     void mapViewRef.current.when(() => {
-      setMapView(mapViewRef.current)
-      onMapViewLoad?.(mapViewRef.current)
-      console.log('mapViewRef.current', mapViewRef.current)
+      setView(mapViewRef.current)
+      dispatch(setMapView(mapViewRef.current))
     })
-  }, [onMapViewLoad])
+  }, [mapConsumer])
 
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
@@ -59,7 +66,7 @@ export default function MapViewComponent ({
   }, [])
 
   return (
-    <MapContext.Provider value={mapView}>
+    <MapContext.Provider value={view}>
       <div className="map__container" ref={mapContainer} />
     </MapContext.Provider>
   )
