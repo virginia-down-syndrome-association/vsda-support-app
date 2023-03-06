@@ -13,7 +13,7 @@ export default function Explore (props) {
 
   useEffect(() => {
     if (view?.ready) {
-      console.log('view ready')
+      console.log('MapView is ready within the Explore view')
     }
   }, [view])
 

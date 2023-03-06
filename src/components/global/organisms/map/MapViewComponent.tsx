@@ -73,7 +73,7 @@ export default function MapViewComponent ({
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (view) {
       console.log('map view available within MapViewComponent')
-      console.log(layers)
+      handleLayerInstantiation(view, layers)
     }
   }, [view])
 

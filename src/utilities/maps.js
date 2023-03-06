@@ -5,10 +5,16 @@ import BasemapToggle from '@arcgis/core/widgets/BasemapToggle'
 import Search from '@arcgis/core/widgets/Search'
 import FeatureLayer from '@arcgis/core/layers/FeatureLayer'
 import { MapConfig, agolItemsPublic, agolItems } from '@/constants/appConfig'
+import {
+  useState,
+  useEffect,
+  useRef,
+  useId
+} from 'react'
 
 const app = {}
 
-export async function initView (container, map) {
+export async function initView(container, map) {
   const config = {
     zoom: 7,
     extent: new Extent(MapConfig.extent),
@@ -59,9 +65,29 @@ export const addContextStates = (map) => {
   map.add(states)
 }
 
-export async function initMap (config) {
+export async function initMap(config) {
   if (app.map) return
   const map = new Map(config)
   app.map = map // should set in redux instead
   return map
+}
+
+
+
+const addLayer = (view, layer) => {
+  const { layerId, layerParams } = layer
+
+  const lyr = useRef(new FeatureLayer({ ...layerParams, id: layerId }))
+
+  const prevLayer = view.map.findLayerById(layer.layerId)
+  if (prevLayer) {
+    view.map.remove(prevLayer)
+  }
+  view.map.add(lyr)
+}
+
+export const handleLayerInstantiation = (view, layers) => {
+  layers.forEach(layer => {
+    addLayer(view, layer)
+  })
 }
