@@ -1,25 +1,23 @@
 import Map from '@arcgis/core/WebMap'
 import MapView from '@arcgis/core/views/MapView'
 import Extent from '@arcgis/core/geometry/Extent'
+import { MapContext } from '@/contexts/MapContext'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React, {
+  useContext,
   useRef,
   useEffect,
-  createContext,
   useState
 } from 'react'
 
 // redux
 import { useDispatch } from 'react-redux'
-
 import { setMapView } from '@/store/reducers/map'
 import { MapConfig } from '../../../../constants/appConfig'
 import { type FeatureLayerConfig } from '../../../../constants/layerConfig'
 import { handleLayerInstantiation, setBasemapGallery, addSearch } from '@/utilities/maps'
 
 import './MapViewComponent.scss'
-
-export const MapContext = createContext<MapView | undefined>(new MapView())
 
 type MapViewConsumers = 'explore' | 'analysis' | 'planning'
 
@@ -80,8 +78,8 @@ export default function MapViewComponent ({
   }, [view])
 
   return (
-    <MapContext.Provider value={view}>
+    <>
       <div className="map__container" ref={mapContainer} />
-    </MapContext.Provider>
+    </>
   )
 }

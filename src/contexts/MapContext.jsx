@@ -1,5 +1,4 @@
 import { createContext, useEffect, useState } from 'react'
-// import { when } from '@arcgis/core/core/reactiveUtils'
 
 export const MapContext = createContext(null)
 

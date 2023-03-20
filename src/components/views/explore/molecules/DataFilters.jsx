@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import { Item, Message } from 'semantic-ui-react'
 import CountySelector from '../atoms/CountySelector'
 import SexSelector from '../atoms/SexSelector'
@@ -6,6 +8,17 @@ import '../style.scss'
 
 export default function DataFilters (props) {
   // filters should both interact with map AND update local data
+  const filters = useSelector(state => state.filters)
+  const { view } = useSelector(state => state.map)
+
+  useEffect(() => {
+    console.log(view);
+    if (filters && view) {
+      console.log('filters changed')
+    }
+  }, [filters, view])
+  // call updateConstituentFilter when things change
+
   return (
     <div className='dataFilter__container'>
       <Message info>
