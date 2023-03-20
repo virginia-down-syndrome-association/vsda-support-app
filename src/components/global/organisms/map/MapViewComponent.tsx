@@ -15,7 +15,7 @@ import { useDispatch } from 'react-redux'
 import { setMapView } from '@/store/reducers/map'
 import { MapConfig } from '../../../../constants/appConfig'
 import { type FeatureLayerConfig } from '../../../../constants/layerConfig'
-import { handleLayerInstantiation, setBasemapGallery } from '@/utilities/maps'
+import { handleLayerInstantiation, setBasemapGallery, addSearch } from '@/utilities/maps'
 
 import './MapViewComponent.scss'
 
@@ -75,6 +75,7 @@ export default function MapViewComponent ({
     if (view) {
       handleLayerInstantiation(view, layers)
       setBasemapGallery(view)
+      addSearch(view)
     }
   }, [view])
 

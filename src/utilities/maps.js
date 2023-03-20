@@ -12,7 +12,7 @@ import { MapConfig, agolItemsPublic, agolItems } from '@/constants/appConfig'
 
 const app = {}
 
-export async function initView(container, map) {
+export async function initView (container, map) {
   const config = {
     zoom: 7,
     extent: new Extent(MapConfig.extent),
@@ -86,8 +86,6 @@ export const handleLayerInstantiation = (view, layers) => {
   })
 }
 
-
-
 export const setBasemapGallery = (view) => {
   const basemapGallery = new BasemapGallery({
     source: new LocalBasemapsSource({
@@ -110,4 +108,11 @@ export const setBasemapGallery = (view) => {
   view.ui.add(layerListExpand, {
     position: 'top-right'
   })
+}
+
+export const addSearch = (view) => {
+  const search = new Search({ // Add Search widget
+    view
+  })
+  view.ui.add(search, 'top-left')
 }
