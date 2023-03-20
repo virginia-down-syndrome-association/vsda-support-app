@@ -15,6 +15,7 @@ import { useDispatch } from 'react-redux'
 import { setMapView } from '@/store/reducers/map'
 import { MapConfig } from '../../../../constants/appConfig'
 import { type FeatureLayerConfig } from '../../../../constants/layerConfig'
+import { handleLayerInstantiation, setBasemapGallery } from '@/utilities/maps'
 
 import './MapViewComponent.scss'
 
@@ -72,8 +73,8 @@ export default function MapViewComponent ({
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (view) {
-      console.log('map view available within MapViewComponent')
       handleLayerInstantiation(view, layers)
+      setBasemapGallery(view)
     }
   }, [view])
 

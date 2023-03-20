@@ -1,16 +1,14 @@
 import Map from '@arcgis/core/Map'
 import MapView from '@arcgis/core/views/MapView'
 import Extent from '@arcgis/core/geometry/Extent'
+import BasemapGallery from '@arcgis/core/widgets/BasemapGallery'
+import Basemap from '@arcgis/core/Basemap'
+import LocalBasemapsSource from '@arcgis/core/widgets/BasemapGallery/support/LocalBasemapsSource'
+import Expand from '@arcgis/core/widgets/Expand'
 import BasemapToggle from '@arcgis/core/widgets/BasemapToggle'
 import Search from '@arcgis/core/widgets/Search'
 import FeatureLayer from '@arcgis/core/layers/FeatureLayer'
 import { MapConfig, agolItemsPublic, agolItems } from '@/constants/appConfig'
-import {
-  useState,
-  useEffect,
-  useRef,
-  useId
-} from 'react'
 
 const app = {}
 
@@ -65,21 +63,17 @@ export const addContextStates = (map) => {
   map.add(states)
 }
 
-export async function initMap(config) {
+export async function initMap (config) {
   if (app.map) return
   const map = new Map(config)
   app.map = map // should set in redux instead
   return map
 }
 
+const addLayer = (view, { props }) => {
+  const lyr = new FeatureLayer({ ...props })
 
-
-const addLayer = (view, layer) => {
-  const { layerId, layerParams } = layer
-
-  const lyr = useRef(new FeatureLayer({ ...layerParams, id: layerId }))
-
-  const prevLayer = view.map.findLayerById(layer.layerId)
+  const prevLayer = view.map.findLayerById(props.id)
   if (prevLayer) {
     view.map.remove(prevLayer)
   }
@@ -89,5 +83,31 @@ const addLayer = (view, layer) => {
 export const handleLayerInstantiation = (view, layers) => {
   layers.forEach(layer => {
     addLayer(view, layer)
+  })
+}
+
+
+
+export const setBasemapGallery = (view) => {
+  const basemapGallery = new BasemapGallery({
+    source: new LocalBasemapsSource({
+      basemaps: [
+        Basemap.fromId('hybrid'),
+        Basemap.fromId('topo-vector'),
+        Basemap.fromId('gray-vector'),
+        Basemap.fromId('streets-vector')
+      ]
+    }),
+    view: view
+  })
+
+  const layerListExpand = new Expand({
+    content: basemapGallery,
+    view,
+    group: 'main-widgets'
+  })
+
+  view.ui.add(layerListExpand, {
+    position: 'top-right'
   })
 }
