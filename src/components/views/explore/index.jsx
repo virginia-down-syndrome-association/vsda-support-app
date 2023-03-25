@@ -5,7 +5,6 @@ import ExploreDataSidepane from './organisms/ExploreDataSidepane'
 import { constituents } from '../../../constants/layerConfig'
 import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { setMapView } from '@/store/reducers/map'
 import './style.scss'
 
 export default function Explore (props) {
@@ -25,10 +24,11 @@ export default function Explore (props) {
         </Grid.Column>
         <Grid.Column className='grid-col' width='11'>
           <MapViewComponent
-            mapViewProps={{}}
+            isWebMap={false}
             mapProps={{ basemap: 'gray-vector' }}
+            mapViewProps={{}}
+            mapConsumer="explore"
             layers={[constituents]}
-            onMapViewLoad={setMapView}
           />
         </Grid.Column>
       </Grid>

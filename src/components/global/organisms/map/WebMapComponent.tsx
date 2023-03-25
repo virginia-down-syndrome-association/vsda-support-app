@@ -1,7 +1,6 @@
-import Map from '@arcgis/core/Map'
+import Map from '@arcgis/core/WebMap'
 import MapView from '@arcgis/core/views/MapView'
 import Extent from '@arcgis/core/geometry/Extent'
-import WebMap from '@arcgis/core/WebMap'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React, {
   useRef,
@@ -11,17 +10,16 @@ import React, {
 
 // redux
 import { useDispatch } from 'react-redux'
-import { setMapView, clearMapView } from '@/store/reducers/map'
+import { setMapView } from '@/store/reducers/map'
 import { MapConfig } from '../../../../constants/appConfig'
 import { type FeatureLayerConfig } from '../../../../constants/layerConfig'
-import { handleLayerInstantiation, setBasemapGallery, addSearch, addLayerList, addLegend } from '@/utilities/maps'
+import { handleLayerInstantiation, setBasemapGallery, addSearch } from '@/utilities/maps'
 
 import './MapViewComponent.scss'
 
 type MapViewConsumers = 'explore' | 'analysis' | 'planning'
 
 type MapViewComponentProps = {
-  isWebMap: boolean
   mapProps: __esri.WebMapProperties
   mapViewProps: __esri.MapViewProperties
   mapConsumer?: MapViewConsumers
@@ -29,7 +27,6 @@ type MapViewComponentProps = {
 }
 
 export default function MapViewComponent ({
-  isWebMap,
   mapProps,
   mapViewProps,
   mapConsumer,
@@ -37,7 +34,7 @@ export default function MapViewComponent ({
 }: MapViewComponentProps) {
   const dispatch = useDispatch()
   const mapContainer = useRef<HTMLDivElement>(null)
-  const mapRef = !isWebMap ? useRef<Map>(new Map(mapProps)) : useRef<WebMap>(new WebMap(mapProps))
+  const mapRef = useRef<Map>(new Map(mapProps))
 
   const [view, setView] = useState<MapView>()
 
@@ -67,9 +64,6 @@ export default function MapViewComponent ({
     if (mapContainer.current) {
       mapViewRef.current.container = mapContainer.current
     }
-    return () => {
-      dispatch(clearMapView())
-    }
   }, [])
 
   useEffect(() => {
@@ -78,8 +72,6 @@ export default function MapViewComponent ({
       if (layers != null) handleLayerInstantiation(view, layers)
       setBasemapGallery(view)
       addSearch(view)
-      addLayerList(view)
-      addLegend(view)
     }
   }, [view])
 

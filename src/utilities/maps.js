@@ -8,11 +8,13 @@ import Expand from '@arcgis/core/widgets/Expand'
 import BasemapToggle from '@arcgis/core/widgets/BasemapToggle'
 import Search from '@arcgis/core/widgets/Search'
 import FeatureLayer from '@arcgis/core/layers/FeatureLayer'
+import LayerList from '@arcgis/core/widgets/LayerList'
+import Legend from '@arcgis/core/widgets/Legend'
 import { MapConfig, agolItemsPublic, agolItems } from '@/constants/appConfig'
 
 const app = {}
 
-export async function initView (container, map) {
+export async function initView(container, map) {
   const config = {
     zoom: 7,
     extent: new Extent(MapConfig.extent),
@@ -63,7 +65,7 @@ export const addContextStates = (map) => {
   map.add(states)
 }
 
-export async function initMap (config) {
+export async function initMap(config) {
   if (app.map) return
   const map = new Map(config)
   app.map = map // should set in redux instead
@@ -106,13 +108,49 @@ export const setBasemapGallery = (view) => {
   })
 
   view.ui.add(layerListExpand, {
-    position: 'top-right'
+    position: 'top-right',
+    index: 1
   })
 }
 
 export const addSearch = (view) => {
   const search = new Search({ // Add Search widget
+    view,
+    index: 0
+  })
+  view.ui.add(search, 'top-right')
+}
+
+export const addLayerList = (view, handler) => {
+  const layerList = new LayerList({
+    id: 'layer-list',
+    view,
+    listItemCreatedFunction: handler || null
+  })
+
+  const layerListExpand = new Expand({
+    content: layerList,
+    group: 'layer-list-expand',
+    view,
+    expandTooltip: 'Layers'
+  })
+
+  view.ui.add(layerListExpand, 'top-right')
+}
+
+export const addLegend = (view) => {
+  const legend = new Legend({
+    id: 'layer-legend',
     view
   })
-  view.ui.add(search, 'top-left')
+
+  const legendExpand = new Expand({
+    content: legend,
+    group: 'legend-expand',
+    view,
+    expandTooltip: 'Legend'
+  })
+
+  view.ui.add(legendExpand, 'top-right')
 }
+
