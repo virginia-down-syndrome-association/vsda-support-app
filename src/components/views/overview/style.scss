@@ -7,8 +7,12 @@
     height: fit-content !important;
 }
 
-.overviewCard{
+.overviewCard__content{
     min-height: 15rem;
     max-height: 15rem;
     overflow-y: auto;
+}
+
+.overviewCard__container{
+    margin-bottom: 2rem !important;
 }

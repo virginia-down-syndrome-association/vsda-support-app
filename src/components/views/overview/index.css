@@ -1,5 +1,8 @@
 .overviewView__container {
-  padding: 2rem;
+  padding-top: 2rem;
+  padding-left: 6rem;
+  padding-right: 6rem;
+  padding-bottom: 2rem;
   display: flex;
   justify-content: center;
   height: 100%;

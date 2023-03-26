@@ -3,6 +3,7 @@ import './index.css'
 import CountyCard from './organisms/CountyCard'
 import ProspectiveCard from './organisms/ProspectiveCard'
 import CurrentActivityCard from './organisms/CurrentActivityCard'
+import SummaryCard from './organisms/SummaryCard'
 
 export default function Overview (props) {
   return (
@@ -17,11 +18,26 @@ export default function Overview (props) {
             <CountyCard />
           </Grid.Column>
           <Grid.Column>
-            <ProspectiveCard />
+            <Grid.Row columns="2">
+              <Grid.Column>
+                <ProspectiveCard />
+              </Grid.Column>
+              <Grid.Column>
+                <CurrentActivityCard />
+              </Grid.Column>
+            </Grid.Row>
           </Grid.Column>
           <Grid.Column>
-            <CurrentActivityCard />
+            <Grid.Row columns="2">
+              <Grid.Column>
+                <SummaryCard />
+              </Grid.Column>
+              <Grid.Column>
+                <CurrentActivityCard />
+              </Grid.Column>
+            </Grid.Row>
           </Grid.Column>
+
         </Grid.Row>
       </Grid>
     </div>
