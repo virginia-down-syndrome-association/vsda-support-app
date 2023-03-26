@@ -17,7 +17,7 @@ import { handleLayerInstantiation, setBasemapGallery, addSearch } from '@/utilit
 
 import './MapViewComponent.scss'
 
-type MapViewConsumers = 'explore' | 'analysis' | 'planning'
+type MapViewConsumers = 'plan' | 'analysis' | 'planning'
 
 type MapViewComponentProps = {
   mapProps: __esri.WebMapProperties

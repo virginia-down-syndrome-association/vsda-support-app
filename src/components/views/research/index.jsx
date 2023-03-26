@@ -8,7 +8,7 @@ export default function Research (props) {
 
   useEffect(() => {
     if (view?.ready) {
-      console.log('MapView is ready within the Explore view')
+      console.log('MapView is ready within the Research view')
     }
   }, [view])
 

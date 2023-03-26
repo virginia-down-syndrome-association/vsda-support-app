@@ -32,8 +32,8 @@ export default function NavTabs () {
           color='blue'
         />
         <Menu.Item
-          name='explore'
-          active={activeTab === 'explore'}
+          name='plan'
+          active={activeTab === 'plan'}
           onClick={handleChange}
           color='blue'
         />

@@ -9,8 +9,7 @@ import type FeatureLayerView from '@arcgis/core/views/layers/FeatureLayerView'
 import type MapView from '@arcgis/core/views/MapView'
 import type Map from '@arcgis/core/WebMap'
 
-
-export type AppFeatureLayerIds = 'explore' | 'analyze'
+export type AppFeatureLayerIds = 'plan' | 'analyze'
 
 type FeatureLayerConfig = {
   renderer: __esri.Renderer
