@@ -14,11 +14,11 @@ import { useDispatch } from 'react-redux'
 import { setMapView, clearMapView } from '@/store/reducers/map'
 import { MapConfig } from '../../../../constants/appConfig'
 import { type FeatureLayerConfig } from '../../../../constants/layerConfig'
-import { handleLayerInstantiation, setBasemapGallery, addSearch, addLayerList, addLegend } from '@/utilities/maps'
+import { handleLayerInstantiation, setBasemapGallery, addSearch, addLayerList, addLegend, addEditorWidget } from '@/utilities/maps'
 
 import './MapViewComponent.scss'
 
-type MapViewConsumers = 'explore' | 'analysis' | 'planning'
+type MapViewConsumers = 'plan' | 'analysis' | 'planning'
 
 type MapViewComponentProps = {
   isWebMap: boolean

@@ -10,6 +10,7 @@ import Search from '@arcgis/core/widgets/Search'
 import FeatureLayer from '@arcgis/core/layers/FeatureLayer'
 import LayerList from '@arcgis/core/widgets/LayerList'
 import Legend from '@arcgis/core/widgets/Legend'
+import Editor from '@arcgis/core/widgets/Editor'
 import { MapConfig, agolItemsPublic, agolItems } from '@/constants/appConfig'
 
 const app = {}
@@ -118,7 +119,15 @@ export const addSearch = (view) => {
     view,
     index: 0
   })
-  view.ui.add(search, 'top-right')
+
+  const searchExpand = new Expand({
+    content: search,
+    group: 'layer-list-expand',
+    view,
+    expandTooltip: 'Layers'
+  })
+
+  view.ui.add(searchExpand, 'top-right')
 }
 
 export const addLayerList = (view, handler) => {
@@ -153,4 +162,22 @@ export const addLegend = (view) => {
 
   view.ui.add(legendExpand, 'top-right')
 }
+
+export const addEditorWidget = (view, layerInfos) => {
+  const editor = new Editor({
+    view,
+    layerInfos
+  })
+  const editorExpand = new Expand({
+    content: editor,
+    group: 'editor-expand',
+    view,
+    expandTooltip: 'Editor'
+  })
+
+  view.ui.add(editorExpand, 'top-right')
+}
+
+
+
 

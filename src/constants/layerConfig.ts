@@ -8,6 +8,13 @@ export type FeatureLayerConfig = {
   }
 }
 
+export const prospectiveConstituents: FeatureLayerConfig = {
+  props: {
+    url: 'https://services3.arcgis.com/eyU1lVcSnKSGItET/arcgis/rest/services/service_5daa3300ea4c4079b217d0c54716dd84/FeatureServer/0',
+    id: 'prospectiveConstituents'
+  }
+}
+
 export const constituents: FeatureLayerConfig = {
   props: {
     renderer: {

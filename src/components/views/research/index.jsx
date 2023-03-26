@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { Grid } from 'semantic-ui-react'
 import MapViewComponent from '@/components/global/organisms/map/MapViewComponent'
-import { setMapView } from '@/store/reducers/map'
 import { useSelector } from 'react-redux'
 
 export default function Research (props) {
