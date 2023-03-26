@@ -1,8 +1,18 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { ComposableMap, Geographies, Geography } from 'react-simple-maps'
 import { queryFeatures } from '@esri/arcgis-rest-feature-service'
-
+import 'react-tooltip/dist/react-tooltip.css'
 import '../style.scss'
+import CountyOverviewLegend from './CountyOverviewLegend'
+
+export const serviceAreaColorScale = {
+  other: '#cbd5e8',
+  vdsa: '#b3e2cd',
+  dsanv: '#fdcdac',
+  dsanrv: '#fff2ae',
+  dsahr: '#f4cae4',
+  dsar: '#b3cde3'
+}
 
 export default function CountyOverview (props) {
   const [data, setData] = useState(null)
@@ -26,34 +36,28 @@ export default function CountyOverview (props) {
     getCountyServiceAreaData()
   }, [])
 
-  const colorScale = {
-    other : '#cbd5e8',
-    vdsa: '#b3e2cd',
-    dsanv: '#fdcdac',
-    dsahr: '#f4cae4',
-    ds : '#e6f5c9',
-  }
-
   const calculateColor = (serviceArea) => {
     switch (serviceArea) {
-      case 'vsda':
-        return colorScale.vdsa
-      case 'dsanv':
-        return colorScale.dsanv
-      case 'dsahr':
-        return colorScale.dsahr
-      case 'dsar':
-        return colorScale.ds
-      case 'other':
-        return colorScale.other
-      default:
-        return colorScale.other
+    case 'vsda':
+      return serviceAreaColorScale.vdsa
+    case 'dsanv':
+      return serviceAreaColorScale.dsanv
+    case 'dsahr':
+      return serviceAreaColorScale.dsahr
+    case 'dsanrv':
+      return serviceAreaColorScale.dsanrv
+    case 'dsar':
+      return serviceAreaColorScale.dsanrv
+    case 'other':
+      return serviceAreaColorScale.other
+    default:
+      return serviceAreaColorScale.other
     }
   }
 
   return (
     <>
-      { data &&
+      {data &&
         <div className='countyOverview__container'>
           <ComposableMap projection='geoMercator' projectionConfig={config}>
             <Geographies geography={geoUrl} >
@@ -61,22 +65,23 @@ export default function CountyOverview (props) {
                 geographies.map((geo) => {
                   const geoid = geo.id
                   try {
-                    const { attributes: { service_area} } = data.features.find(f => f.attributes.GEOID === geoid)
-                    geo.properties.serviceArea = service_area
+                    const { attributes: { service_area: serviceArea } } = data.features.find(f => f.attributes.GEOID === geoid)
+                    geo.properties.serviceArea = serviceArea
                     return <Geography
                       key={geo.id}
                       geography={geo}
-                      fill={calculateColor(service_area)}
+                      fill={calculateColor(serviceArea)}
                       style={{
-                        default: {
-
-                        },
                         hover: {
-                          fill: 'red'
+                          fill: 'yellow'
+                        },
+                        outline: {
+                          stroke: 'black'
                         }
                       }}
                     />
                   } catch (e) {
+                    // eslint-disable-next-line no-console
                     console.error(`For GEOID ${geoid}`, e)
                     return <Geography key={geo.id} geography={geo} fill={'#cbd5e8'} />
                   }
@@ -84,6 +89,7 @@ export default function CountyOverview (props) {
               }
             </Geographies>
           </ComposableMap>
+          <CountyOverviewLegend />
         </div>
       }
     </>

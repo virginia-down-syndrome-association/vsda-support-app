@@ -5,6 +5,11 @@
   height: 100%;
 }
 
+.cardHeader{
+  display: flex;
+  flex-direction: column !important;
+}
+
 .overviewHeader {
   display: flex;
   flex-direction: column !important;

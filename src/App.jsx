@@ -5,6 +5,7 @@ import Manage from '@/components/views/manage'
 import Edit from '@/components/views/edit'
 import Layout from '@/components/layout/Layout'
 import { Navigate, Routes, Route } from 'react-router-dom'
+import './App.css'
 
 export default function App () {
   return (
