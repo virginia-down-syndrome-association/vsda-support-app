@@ -23,21 +23,20 @@ export default function Overview (props) {
                 <ProspectiveCard />
               </Grid.Column>
               <Grid.Column>
-                <CurrentActivityCard />
+                <SummaryCard />
               </Grid.Column>
             </Grid.Row>
           </Grid.Column>
           <Grid.Column>
             <Grid.Row columns="2">
               <Grid.Column>
-                <SummaryCard />
+                <CurrentActivityCard />
               </Grid.Column>
               <Grid.Column>
                 <CurrentActivityCard />
               </Grid.Column>
             </Grid.Row>
           </Grid.Column>
-
         </Grid.Row>
       </Grid>
     </div>

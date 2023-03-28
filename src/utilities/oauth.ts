@@ -109,7 +109,6 @@ export const initAuthenticationOrReturnLocalCredential = async (
     const fetchedCredential: Credential = await IdentityManager.getCredential(
       `${portalUrl}/sharing`
     )
-    console.log(fetchedCredential)
     const localCredential: LocalCredential = {
       token: fetchedCredential.token,
       userId: fetchedCredential.userId,

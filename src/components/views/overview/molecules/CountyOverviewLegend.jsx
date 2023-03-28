@@ -1,12 +1,5 @@
 import { Item, Icon } from 'semantic-ui-react'
-import { serviceAreaColorScale } from './CountyOverview'
 import '../style.scss'
-
-const getColor = (serviceArea) => {
-  return serviceAreaColorScale[serviceArea]
-}
-
-
 
 export default function CountyOverviewLegend (props) {
   return (

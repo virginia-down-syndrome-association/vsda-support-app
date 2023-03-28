@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { ComposableMap, Geographies, Geography, Marker } from 'react-simple-maps'
 import { queryFeatures } from '@esri/arcgis-rest-feature-service'
 import { agolItems } from '@/constants/appConfig'
@@ -16,21 +16,39 @@ export const serviceAreaColorScale = {
   dsar: '#b3cde3'
 }
 
-export default function CountyOverview (props) {
-  const { authentication }= useTokenHelper()
-  const [affiliates, setAffiliates] = useState([])
-  const [participants, setParticipants] =
-    useState(
-      [
-        { name: 'Alexandria', coordinates: [-77.0469, 38.8048] },
-        { name: 'Arlington', coordinates: [-77.0903, 38.8816] },
-        { name: 'Bristol', coordinates: [-82.1887, 36.5951] }
-      ]
-    )
+const useParticipantState = () => {
+  const [value, setValue] = useState([])
 
-  const getCountyServiceAreaData = async () => {
+  function handleTranslation (participants) {
+    return participants.map(({ properties, geometry }) => {
+      return {
+        name: `${properties.FirstName} ${properties.LastName}`,
+        coordinates: geometry.coordinates
+      }
+    })
+  }
+
+  function translateFormat (participants) {
+    if (participants) {
+      setValue([])
+    }
+
+    const subset = handleTranslation(participants)
+    setValue(subset)
+  }
+
+  return [value, translateFormat]
+}
+
+export default function CountyOverview (props) {
+  const { authentication } = useTokenHelper()
+  const [affiliates, setAffiliates] = useState([])
+  const [participants, setParticipants] = useParticipantState()
+
+  const geoUrl = 'https://gist.githubusercontent.com/mbostock/7061976/raw/90b132eeb21fc81df9572782cd4e1f8adadb6fe3/va-counties.json'
+
+  const getCountyServiceAreaData = useCallback(async () => {
     const fields = ['service_area', 'GEOID']
-    console.log(authentication)
     const res = await queryFeatures({
       url: agolItems.rest.counties,
       f: 'json',
@@ -39,28 +57,24 @@ export default function CountyOverview (props) {
       authentication
     })
     setAffiliates(res)
-  }
+  })
 
-  const getParticipantData = async () => {
+  const getParticipantData = useCallback(async () => {
     const fields = ['service_area', 'GEOID']
-    console.log(authentication)
     const { features } = await queryFeatures({
       url: agolItems.rest.constituents,
-      f: 'json',
+      f: 'geojson',
       outfields: fields,
-      returnGeometry: false,
+      returnGeometry: true,
       authentication
     })
     setParticipants(features)
-  }
-
-  const geoUrl = 'https://gist.githubusercontent.com/mbostock/7061976/raw/90b132eeb21fc81df9572782cd4e1f8adadb6fe3/va-counties.json'
-  const config = { center: [-78.6569, 37.4316], scale: 4000 }
+  })
 
   useEffect(() => {
     if (authentication) {
       getCountyServiceAreaData()
-      // getParticipantData()
+      getParticipantData()
     }
   }, [authentication])
 
@@ -87,7 +101,7 @@ export default function CountyOverview (props) {
     <>
       {affiliates &&
         <div className='countyOverview__container'>
-          <ComposableMap projection='geoMercator' projectionConfig={config}>
+          <ComposableMap projection='geoMercator' projectionConfig={{ center: [-78.6569, 37.4316], scale: 4000 }}>
             <Geographies geography={geoUrl} >
               {({ geographies }) =>
                 geographies.map((geo) => {
@@ -116,10 +130,10 @@ export default function CountyOverview (props) {
                 })
               }
             </Geographies>
-            {participants.map(participant => (
+            {participants.length > 0 && participants.map(participant => (
               <React.Fragment key={participant.name}>
                 <Marker key={participant.name} coordinates={participant.coordinates}>
-                  <circle r={4} fill="#F53" />
+                  <circle r={4} fill="darkestgray" />
                 </Marker>
               </React.Fragment>
             ))
