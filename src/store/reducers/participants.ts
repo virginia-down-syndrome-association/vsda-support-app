@@ -37,14 +37,14 @@ const initialState: ParticipantState = {
 }
 
 const participantSlice = createSlice({
-  name: 'filters',
+  name: 'participants',
   initialState,
   reducers: {
     setParticipants (state, action: PayloadAction<Participant[]>) {
       const { payload } = action
       return {
         ...state,
-        ...payload
+        participants: payload
       }
     },
     setProspectiveParticipants (state, action: PayloadAction<ProspectiveParticipant[]>) {

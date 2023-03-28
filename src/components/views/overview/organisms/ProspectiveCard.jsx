@@ -1,8 +1,10 @@
 // import React from 'react'
 import { Card, Feed, Icon } from 'semantic-ui-react'
+import { useSelector } from 'react-redux'
 import '../style.scss'
 
 export default function ProspectiveCard (props) {
+
   const prospects = [
     { id: 1, text: 'First event' },
     { id: 2, text: 'Second event' },

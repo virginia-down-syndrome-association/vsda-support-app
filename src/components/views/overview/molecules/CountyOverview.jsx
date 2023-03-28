@@ -5,6 +5,8 @@ import { agolItems } from '@/constants/appConfig'
 import 'react-tooltip/dist/react-tooltip.css'
 import '../style.scss'
 import CountyOverviewLegend from './CountyOverviewLegend'
+import { useDispatch } from 'react-redux'
+import { setParticipants, setProspectiveParticipants } from '@/store/reducers/participants'
 import useTokenHelper from '@/utilities/hooks/useTokenHelper'
 
 export const serviceAreaColorScale = {
@@ -17,7 +19,8 @@ export const serviceAreaColorScale = {
 }
 
 const useParticipantState = () => {
-  const [value, setValue] = useState([])
+  const dispatch = useDispatch()
+  const [_participants, _setParticipants] = useState([])
 
   function handleTranslation (participants) {
     return participants.map(({ properties, geometry }) => {
@@ -30,14 +33,14 @@ const useParticipantState = () => {
 
   function translateFormat (participants) {
     if (participants) {
-      setValue([])
+      dispatch(setParticipants(participants))
     }
 
-    const subset = handleTranslation(participants)
-    setValue(subset)
+    const recast = handleTranslation(participants)
+    _setParticipants(recast)
   }
 
-  return [value, translateFormat]
+  return [_participants, translateFormat]
 }
 
 export default function CountyOverview (props) {

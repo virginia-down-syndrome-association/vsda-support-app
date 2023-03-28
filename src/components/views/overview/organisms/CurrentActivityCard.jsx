@@ -1,39 +1,58 @@
-// import React from 'react'
+import { useState, useEffect } from 'react'
 import { Card, Feed, Icon } from 'semantic-ui-react'
+import { useSelector } from 'react-redux'
 import '../style.scss'
 
-export default function CurrentActivityCard(props) {
-  const activities = [
-    { id: 1, text: 'First event' },
-    { id: 2, text: 'Second event' },
-    { id: 3, text: 'Third event' },
-    { id: 4, text: 'First event' },
-    { id: 5, text: 'Second event' },
-    { id: 6, text: 'Third event' },
-    { id: 7, text: 'First event' },
-    { id: 8, text: 'Second event' },
-    { id: 9, text: 'Third event' },
-    { id: 10, text: 'First event' },
-    { id: 11, text: 'Second event' },
-    { id: 12, text: 'Third event' }
-  ]
+const useParticipants = () => {
+  const { participants } = useSelector(state => state.participants)
+  const [_participants, _setParticipants] = useState([])
+
+  function getDaysSinceJoining(date) {
+    const today = new Date()
+    const dateJoined = new Date(date)
+    const diffTime = Math.abs(today - dateJoined)
+    const daysElapsed = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
+    return daysElapsed
+  }
+
+  useEffect(() => {
+    if (participants.length > 0) {
+      const items = participants.map(({ properties }) => {
+        return {
+          id: properties.OBJECTID,
+          firstName: properties.FirstName,
+          lastName: properties.LastName,
+          daysSinceJoin: getDaysSinceJoining(properties.CreationDate)
+        }
+      })
+      _setParticipants(items)
+    } else {
+      _setParticipants([])
+    }
+  }, [participants])
+
+  return [_participants, _setParticipants]
+}
+
+export default function CurrentActivityCard (props) {
+  const [recentParticipants] = useParticipants()
 
   return (
     <>
       <div className='countyCard__container overviewCard__container'>
         <Card raised fluid className='overviewCard'>
           <Card.Content >
-            <Card.Header className='countyCardHeader cardHeader'>Current Members (recent activity)</Card.Header>
+            <Card.Header className='countyCardHeader cardHeader'>Recent Members (joined within last 90 days)</Card.Header>
           </Card.Content >
           <Card.Content className='overviewCard__content' >
             <Feed>
-              {activities.map(activity => (
-                <Feed.Event key={activity.id}>
+              {recentParticipants.map(participant => (
+                <Feed.Event key={participant.id}>
                   <Feed.Label > <Icon size='tiny' name="user plus" /> </Feed.Label>
                   <Feed.Content>
-                    <Feed.Date content='1 day ago' />
+                    <Feed.Date> {`${participant.daysSinceJoin} ago`} </Feed.Date>
                     <Feed.Summary>
-                      Member <a>Jenny Hess</a> to the platfrom.
+                      {`${participant.firstName} ${participant.lastName} joined the platfrom.`}
                     </Feed.Summary>
                   </Feed.Content>
                 </Feed.Event>
