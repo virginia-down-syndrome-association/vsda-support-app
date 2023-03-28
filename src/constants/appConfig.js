@@ -22,6 +22,7 @@ export const agolItemsPublic = {
 
 export const agolItems = {
   rest: {
-    constituents: 'https://services3.arcgis.com/eyU1lVcSnKSGItET/arcgis/rest/services/constituent/FeatureServer/0'
+    constituents: 'https://services3.arcgis.com/eyU1lVcSnKSGItET/arcgis/rest/services/constituent/FeatureServer/0',
+    counties: 'https://services3.arcgis.com/eyU1lVcSnKSGItET/ArcGIS/rest/services/Virginia_Counties/FeatureServer/0'
   }
 }

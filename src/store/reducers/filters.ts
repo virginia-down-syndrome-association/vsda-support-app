@@ -1,8 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-
-// types and variables
-type SexType = 'male' | 'female' | 'all'
+import { type SexType } from '../../typings/rest'
 
 type AgePayload = {
   minAge: number

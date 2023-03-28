@@ -7,15 +7,15 @@ export default function CurrentActivityCard(props) {
     { id: 1, text: 'First event' },
     { id: 2, text: 'Second event' },
     { id: 3, text: 'Third event' },
-    { id: 1, text: 'First event' },
-    { id: 2, text: 'Second event' },
-    { id: 3, text: 'Third event' },
-    { id: 1, text: 'First event' },
-    { id: 2, text: 'Second event' },
-    { id: 3, text: 'Third event' },
-    { id: 1, text: 'First event' },
-    { id: 2, text: 'Second event' },
-    { id: 3, text: 'Third event' }
+    { id: 4, text: 'First event' },
+    { id: 5, text: 'Second event' },
+    { id: 6, text: 'Third event' },
+    { id: 7, text: 'First event' },
+    { id: 8, text: 'Second event' },
+    { id: 9, text: 'Third event' },
+    { id: 10, text: 'First event' },
+    { id: 11, text: 'Second event' },
+    { id: 12, text: 'Third event' }
   ]
 
   return (
@@ -33,7 +33,7 @@ export default function CurrentActivityCard(props) {
                   <Feed.Content>
                     <Feed.Date content='1 day ago' />
                     <Feed.Summary>
-                      You added <a>Jenny Hess</a> to the platfrom.
+                      Member <a>Jenny Hess</a> to the platfrom.
                     </Feed.Summary>
                   </Feed.Content>
                 </Feed.Event>

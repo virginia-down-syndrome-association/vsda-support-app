@@ -3,7 +3,6 @@ import { Card } from 'semantic-ui-react'
 import '../style.scss'
 
 export default function SummaryCard (props) {
-
   return (
     <>
       <div className='countyCard__container overviewCard__container'>
