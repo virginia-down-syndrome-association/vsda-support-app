@@ -7,7 +7,7 @@ export default function CountyCard (props) {
   return (
     <>
       <div className='countyCard__container'>
-        <Card className="raised fluid">
+        <Card className="raised fluid countyCard">
           <Card.Content>
             <Card.Header className='countyCardHeader cardHeader'>Statewide Affliate Organizations</Card.Header>
           </Card.Content>

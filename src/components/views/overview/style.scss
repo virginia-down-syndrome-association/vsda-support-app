@@ -2,7 +2,11 @@
     // height: 500px;
     // width: 500px;
 }
-
+.countyCard__container{
+    .fluid.raised.countyCard{
+        height: 50rem;
+    }
+}
 .cardHeader {
     height: fit-content !important;
 }
@@ -13,8 +17,19 @@
     overflow-y: auto;
 }
 
+.overviewCardStats__content{
+    min-height: 27rem;
+    max-height: 27rem;
+    overflow-y: auto;
+}
+
+.sexPie{
+    padding: 3rem  !important;
+}
+
 .stats__content{
-    padding: 1rem !important;
+    padding: 2rem 3rem 3rem 3rem  !important;
+    overflow: hidden;
 }
 
 .statistic{

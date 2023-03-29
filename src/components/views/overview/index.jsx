@@ -1,10 +1,10 @@
 import { Grid } from 'semantic-ui-react'
 import './index.css'
 import CountyCard from './organisms/CountyCard'
-import PlatformStatsCard from './organisms/PlatformStatsCard'
+import StatisticsCard from './organisms/StatisticsCard'
 import ProspectiveCard from './organisms/ProspectiveCard'
 import CurrentActivityCard from './organisms/RecentActivityCard'
-import SummaryCard from './organisms/SummaryCard'
+import MetricsCard from './organisms/MetricsCard'
 
 export default function Overview (props) {
   return (
@@ -21,20 +21,20 @@ export default function Overview (props) {
           <Grid.Column>
             <Grid.Row columns="2">
               <Grid.Column>
-                <ProspectiveCard />
+                <MetricsCard />
               </Grid.Column>
               <Grid.Column>
-                <SummaryCard />
+                <ProspectiveCard />
               </Grid.Column>
             </Grid.Row>
           </Grid.Column>
           <Grid.Column>
             <Grid.Row columns="2">
               <Grid.Column>
-                <CurrentActivityCard />
+                <StatisticsCard />
               </Grid.Column>
               <Grid.Column>
-                <PlatformStatsCard />
+                <CurrentActivityCard />
               </Grid.Column>
             </Grid.Row>
           </Grid.Column>
