@@ -7,7 +7,7 @@ const useParticipants = () => {
   const { participants } = useSelector(state => state.participants)
   const [_participants, _setParticipants] = useState([])
 
-  function getDaysSinceJoining(date) {
+  function getDaysSinceJoining (date) {
     const today = new Date()
     const dateJoined = new Date(date)
     const diffTime = Math.abs(today - dateJoined)
@@ -25,7 +25,9 @@ const useParticipants = () => {
           daysSinceJoin: getDaysSinceJoining(properties.CreationDate)
         }
       })
-      _setParticipants(items)
+      const dayThreshold = 90
+      const recentItems = items.filter(item => item.daysSinceJoin <= dayThreshold)
+      _setParticipants(recentItems)
     } else {
       _setParticipants([])
     }
@@ -34,7 +36,7 @@ const useParticipants = () => {
   return [_participants, _setParticipants]
 }
 
-export default function CurrentActivityCard (props) {
+export default function RecentActivityCard (props) {
   const [recentParticipants] = useParticipants()
 
   return (
@@ -52,7 +54,7 @@ export default function CurrentActivityCard (props) {
                   <Feed.Content>
                     <Feed.Date> {`${participant.daysSinceJoin} ago`} </Feed.Date>
                     <Feed.Summary>
-                      {`${participant.firstName} ${participant.lastName} joined the platfrom.`}
+                      {`${participant.firstName} ${participant.lastName} joined the platform.`}
                     </Feed.Summary>
                   </Feed.Content>
                 </Feed.Event>

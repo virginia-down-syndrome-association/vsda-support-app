@@ -1,8 +1,9 @@
 import { Grid } from 'semantic-ui-react'
 import './index.css'
 import CountyCard from './organisms/CountyCard'
+import PlatformStatsCard from './organisms/PlatformStatsCard'
 import ProspectiveCard from './organisms/ProspectiveCard'
-import CurrentActivityCard from './organisms/CurrentActivityCard'
+import CurrentActivityCard from './organisms/RecentActivityCard'
 import SummaryCard from './organisms/SummaryCard'
 
 export default function Overview (props) {
@@ -33,7 +34,7 @@ export default function Overview (props) {
                 <CurrentActivityCard />
               </Grid.Column>
               <Grid.Column>
-                <CurrentActivityCard />
+                <PlatformStatsCard />
               </Grid.Column>
             </Grid.Row>
           </Grid.Column>

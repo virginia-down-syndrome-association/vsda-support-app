@@ -1,5 +1,5 @@
 // import React from 'react'
-import { Card } from 'semantic-ui-react'
+import { Grid, Card } from 'semantic-ui-react'
 import '../style.scss'
 
 export default function SummaryCard (props) {
@@ -11,7 +11,16 @@ export default function SummaryCard (props) {
             <Card.Header className='cardHeader'>Platform Statistics</Card.Header>
           </Card.Content>
           <Card.Content className='overviewCard__content'>
-
+            <Grid>
+              <Grid.Row columns="2">
+                <Grid.Column>
+                  <div>bar</div>
+                </Grid.Column>
+                <Grid.Column>
+                  <div>bar</div>
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
           </Card.Content>
         </Card>
       </div>

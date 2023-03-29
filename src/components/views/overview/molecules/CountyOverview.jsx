@@ -6,7 +6,7 @@ import 'react-tooltip/dist/react-tooltip.css'
 import '../style.scss'
 import CountyOverviewLegend from './CountyOverviewLegend'
 import { useDispatch } from 'react-redux'
-import { setParticipants, setProspectiveParticipants } from '@/store/reducers/participants'
+import { setParticipants } from '@/store/reducers/participants'
 import useTokenHelper from '@/utilities/hooks/useTokenHelper'
 
 export const serviceAreaColorScale = {

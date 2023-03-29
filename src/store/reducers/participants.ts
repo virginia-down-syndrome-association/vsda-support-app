@@ -51,7 +51,7 @@ const participantSlice = createSlice({
       const { payload } = action
       return {
         ...state,
-        ...payload
+        prospectiveParticipants: payload
       }
     },
     resetParticipantState (state) {
