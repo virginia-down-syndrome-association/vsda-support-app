@@ -26,6 +26,7 @@ const mapReducer = (state = mapStateInit, action: MapAction | ClearMapAction) =>
   let newState: MapState = mapStateInit
   switch (action.type) {
     case 'MAP_STATE_SET_MAPVIEW':
+      console.log('MAP_STATE_SET_MAPVIEW', action.payload)
       newState = {
         ...state,
         view: action.payload as MapView | null
@@ -42,9 +43,6 @@ const mapReducer = (state = mapStateInit, action: MapAction | ClearMapAction) =>
   }
 }
 export default mapReducer
-
-
-
 
 // actions
 export const setMapView = (mapView: MapView): MapAction => ({

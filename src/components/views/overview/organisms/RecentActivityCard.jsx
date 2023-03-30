@@ -53,9 +53,9 @@ export default function RecentActivityCard (props) {
                   <Feed.Label > <Icon size='tiny' name="user plus" /> </Feed.Label>
                   <Feed.Content>
                     <Feed.Date> {`${participant.daysSinceJoin} ago`} </Feed.Date>
-                    <Feed.Summary>
+                    <Feed.Label>
                       {`${participant.firstName} ${participant.lastName} joined the platform.`}
-                    </Feed.Summary>
+                    </Feed.Label>
                   </Feed.Content>
                 </Feed.Event>
               ))}

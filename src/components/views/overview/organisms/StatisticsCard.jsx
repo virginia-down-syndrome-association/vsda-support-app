@@ -1,7 +1,7 @@
 // import React from 'react'
 import { Grid, Card } from 'semantic-ui-react'
-import ParticipantAgeChart from '../molecules/ParticipantAgeChart'
 import ParticipantSexChart from '../molecules/ParticipantSexChart'
+import ParticipantGeographyStats from '../molecules/ParticipantGeographyStats'
 import '../style.scss'
 
 export default function SummaryCard (props) {
@@ -17,6 +17,9 @@ export default function SummaryCard (props) {
               <Grid.Row columns="2">
                 <Grid.Column>
                   <ParticipantSexChart />
+                </Grid.Column>
+                <Grid.Column>
+                  <ParticipantGeographyStats />
                 </Grid.Column>
               </Grid.Row>
             </Grid>

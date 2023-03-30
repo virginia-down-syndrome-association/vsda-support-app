@@ -70,8 +70,6 @@ const options = {
     }],
     yAxes: [{
       ticks: {
-        min: 0,
-        precison: 0,
         beginAtZero: true
       }
     }]

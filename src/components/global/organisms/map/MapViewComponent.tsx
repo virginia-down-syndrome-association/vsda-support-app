@@ -68,7 +68,7 @@ export default function MapViewComponent ({
       mapViewRef.current.container = mapContainer.current
     }
     return () => {
-      dispatch(clearMapView())
+      // dispatch(clearMapView())
     }
   }, [])
 
