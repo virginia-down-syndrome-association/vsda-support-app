@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { Item, Message } from 'semantic-ui-react'
-import { updateConstituentFilter } from '@/utilities/helpers'
+import { updateConstituentFilter } from '@/utilities/filters'
 import CountySelector from '../atoms/CountySelector'
 import SexSelector from '../atoms/SexSelector'
 import AgeSelector from '../atoms/AgeSelector'

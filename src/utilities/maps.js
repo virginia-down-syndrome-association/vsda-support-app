@@ -60,7 +60,8 @@ export const addContextStates = (map) => {
   const url = agolItemsPublic.rest.states
   const states = new FeatureLayer({
     url,
-    definitionExpression: "STATE_ABBR = 'VA'"
+    definitionExpression: "STATE_ABBR = 'VA'",
+    outFields: ['*']
   })
 
   map.add(states)
@@ -81,6 +82,10 @@ const addLayer = (view, { props }) => {
     view.map.remove(prevLayer)
   }
   view.map.add(lyr)
+  lyr.when((layer) => {
+    layer.popupEnabled = true
+    layer.popupTemplate = { title: layer.title, content: `OBJECTID` } //TODO: popupTemplate from config object
+  })
 }
 
 export const handleLayerInstantiation = (view, layers) => {

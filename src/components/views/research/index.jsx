@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { Grid } from 'semantic-ui-react'
 import MapViewComponent from '@/components/global/organisms/map/MapViewComponent'
+import { agolItems } from '../../../constants/appConfig'
 import { useSelector } from 'react-redux'
 
 export default function Research (props) {
@@ -15,7 +16,7 @@ export default function Research (props) {
   const mapProps = {
     basemap: 'gray-vector',
     portalItem: {
-      id: 'aa52ca4c4b5448699b1f838d58cb20a7'
+      id: agolItems.webmaps.research.id
     }
   }
 
@@ -28,7 +29,6 @@ export default function Research (props) {
           </Grid.Column>
           <Grid.Column className="second-col"width="9">
             <MapViewComponent
-              isWebMap={true}
               mapProps={ mapProps }
               mapViewProps={{}}
               mapConsumer="analysis"

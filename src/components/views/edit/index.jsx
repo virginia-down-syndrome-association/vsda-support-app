@@ -14,10 +14,10 @@ export default function Edit (props) {
     <React.Fragment>
       <React.Fragment>
         <Grid className='full-height full-width' columns='two' divided>
-          <Grid.Column className='gridColumn' width='5'>
+          <Grid.Column className='gridColumn' width='3'>
             Sidebar goes here.
           </Grid.Column>
-          <Grid.Column className='ManageMap__container' width='11'>
+          <Grid.Column className='ManageMap__container' width='13'>
             <Iframe iframe={iframe} />,
           </Grid.Column>
         </Grid>

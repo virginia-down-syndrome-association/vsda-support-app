@@ -14,7 +14,7 @@ import { useDispatch } from 'react-redux'
 import { setMapView, clearMapView } from '@/store/reducers/map'
 import { MapConfig } from '../../../../constants/appConfig'
 import { type FeatureLayerConfig } from '../../../../constants/layerConfig'
-import { handleLayerInstantiation, setBasemapGallery, addSearch, addLayerList, addLegend, addEditorWidget } from '@/utilities/maps'
+import { handleLayerInstantiation, setBasemapGallery, addSearch, addLayerList, addLegend } from '@/utilities/maps'
 
 import './MapViewComponent.scss'
 
@@ -29,7 +29,6 @@ type MapViewComponentProps = {
 }
 
 export default function MapViewComponent ({
-  isWebMap,
   mapProps,
   mapViewProps,
   mapConsumer,
@@ -37,6 +36,7 @@ export default function MapViewComponent ({
 }: MapViewComponentProps) {
   const dispatch = useDispatch()
   const mapContainer = useRef<HTMLDivElement>(null)
+  const isWebMap = mapProps.portalItem != null
   const mapRef = !isWebMap ? useRef<Map>(new Map(mapProps)) : useRef<WebMap>(new WebMap(mapProps))
 
   const [view, setView] = useState<MapView>()
@@ -68,7 +68,7 @@ export default function MapViewComponent ({
       mapViewRef.current.container = mapContainer.current
     }
     return () => {
-      // dispatch(clearMapView())
+      dispatch(clearMapView())
     }
   }, [])
 

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { Grid } from 'semantic-ui-react'
 import MapViewComponent from '@/components/global/organisms/map/MapViewComponent'
 import { constituents, prospectiveConstituents } from '../../../constants/layerConfig'
+import { agolItems } from '../../../constants/appConfig'
 import { addEditorWidget } from '@/utilities/maps'
 import { useSelector } from 'react-redux'
 import './style.scss'
@@ -92,7 +93,7 @@ export default function Manage (props) {
   const mapProps = {
     basemap: 'gray-vector',
     portalItem: {
-      id: '2a6fb55037d84b5b8fd0499489e93ebe'
+      id: agolItems.webmaps.manage.id
     }
   }
 
@@ -105,7 +106,6 @@ export default function Manage (props) {
           </Grid.Column>
           <Grid.Column className='ManageMap__container' width='11'>
             <MapViewComponent
-              isWebMap={true}
               mapProps={mapProps}
               mapViewProps={{}}
               mapConsumer='manage'

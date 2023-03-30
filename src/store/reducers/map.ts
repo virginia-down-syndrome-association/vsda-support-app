@@ -39,7 +39,7 @@ const mapReducer = (state = mapStateInit, action: MapAction | ClearMapAction) =>
       }
       return newState
     default:
-      return newState
+      return state
   }
 }
 export default mapReducer
