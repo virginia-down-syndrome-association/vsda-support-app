@@ -1,32 +1,10 @@
 import store from '@/store'
 import FeatureFilter from '@arcgis/core/layers/support/FeatureFilter.js'
-import TimeExtent from '@arcgis/core/TimeExtent'
 
 function getMonth (date) {
   const month = date.getMonth() + 1
   return month < 10 ? '0' + month : '' + month
 }
-
-// function calculateBirthDate (age) {
-//   const currentDate = new Date()
-//   const currentYear = currentDate.getFullYear()
-//   const birthYear = currentYear - age
-//   return {
-//     year: birthYear,
-//     month: currentDate.getMonth(),
-//     day: currentDate.getDate()
-//   }
-// }
-
-// export const translateAgeToDate = (minAge, maxAge) => {
-//   const { year: minYear, month: minMonth, day: minDay } = calculateBirthDate(maxAge)
-//   const { year: maxYear, month: maxMonth, day: maxDay } = calculateBirthDate(minAge)
-
-//   return new TimeExtent({
-//     start: new Date(minYear, minMonth, minDay),
-//     end: new Date(maxYear, maxMonth, maxDay)
-//   })
-// }
 
 function calculateBirthDate (age) {
   const currentDate = new Date()
@@ -57,7 +35,6 @@ export const updateConstituentFilter = (view) => {
     filterOptions.filters.push({ where: sexWhere })
   }
   if (minAge !== 0 || maxAge !== 100) {
-    // filterOptions.timeExtent = translateAgeToDate(minAge, maxAge)
     const { minBirthDate, maxBirthDate } = makeAgeToDate(minAge, maxAge)
     // eslint-disable-next-line quotes
     const ageWhere = `(Birthdate >= timestamp '${minBirthDate}' AND Birthdate <= timestamp '${maxBirthDate}')`
