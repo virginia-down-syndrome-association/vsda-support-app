@@ -1,5 +1,6 @@
 import store from '@/store'
 import FeatureFilter from '@arcgis/core/layers/support/FeatureFilter.js'
+import { setCurrentFeatures } from '@/store/reducers/filters'
 
 function getMonth (date) {
   const month = date.getMonth() + 1
@@ -11,6 +12,17 @@ function calculateBirthDate (age) {
   const currentYear = currentDate.getFullYear()
   const birthYear = currentYear - age
   return `${birthYear}-${getMonth(currentDate)}-${currentDate.getDate()}`
+}
+
+export function calculateAgeFromTimestamp (timestamp) {
+  const now = new Date()
+  const birthdate = new Date(timestamp)
+  let age = now.getFullYear() - birthdate.getFullYear()
+  const monthDiff = now.getMonth() - birthdate.getMonth()
+  if (monthDiff < 0 || (monthDiff === 0 && now.getDate() < birthdate.getDate())) {
+    age--
+  }
+  return age
 }
 
 export const makeAgeToDate = (minAge, maxAge) => {
@@ -37,22 +49,28 @@ export const updateConstituentFilter = (view) => {
   if (minAge !== 0 || maxAge !== 100) {
     const { minBirthDate, maxBirthDate } = makeAgeToDate(minAge, maxAge)
     // eslint-disable-next-line quotes
-    const ageWhere = `(Birthdate >= timestamp '${minBirthDate}' AND Birthdate <= timestamp '${maxBirthDate}')`
+    const ageWhere = `(Birthdate >= timestamp '${minBirthDate}' AND Birthdate <= timestamp '${maxBirthDate}')` // TODO use DATE
     filterOptions.filters.push({ where: ageWhere })
   }
   const targetLayerView = view.map.findLayerById('constituents')
-  if (filterOptions.filters.length) {
-    const where = filterOptions.filters.map(filter => filter.where).join(' AND ')
-    view.whenLayerView(targetLayerView).then(function (layerView) {
-      layerView.filter = new FeatureFilter({
-        where
+  if (targetLayerView) {
+    if (filterOptions.filters.length) {
+      const where = filterOptions.filters.map(filter => filter.where).join(' AND ')
+      view.whenLayerView(targetLayerView).then(async function (layerView) {
+        layerView.filter = new FeatureFilter({
+          where
+        })
+        const { features } = await layerView.queryFeatures()
+        store.dispatch(setCurrentFeatures(features))
       })
-    })
-  } else {
-    view.whenLayerView(targetLayerView).then(function (layerView) {
-      layerView.filter = new FeatureFilter({
-        where: '1=1' // shoud this be null?
+    } else {
+      view.whenLayerView(targetLayerView).then(async function (layerView) {
+        layerView.filter = new FeatureFilter({
+          where: '1=1' // shoud this be null?
+        })
+        const { features } = await layerView.queryFeatures()
+        store.dispatch(setCurrentFeatures(features))
       })
-    })
+    }
   }
 }

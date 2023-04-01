@@ -11,11 +11,11 @@ import FeatureLayer from '@arcgis/core/layers/FeatureLayer'
 import LayerList from '@arcgis/core/widgets/LayerList'
 import Legend from '@arcgis/core/widgets/Legend'
 import Editor from '@arcgis/core/widgets/Editor'
-import { MapConfig, agolItemsPublic, agolItems } from '@/constants/appConfig'
+import { MapConfig, agolItemsPublic } from '@/constants/appConfig'
 
 const app = {}
 
-export async function initView(container, map) {
+export async function initView (container, map) {
   const config = {
     zoom: 7,
     extent: new Extent(MapConfig.extent),
@@ -67,14 +67,14 @@ export const addContextStates = (map) => {
   map.add(states)
 }
 
-export async function initMap(config) {
+export async function initMap (config) {
   if (app.map) return
   const map = new Map(config)
   app.map = map // should set in redux instead
   return map
 }
 
-const addLayer = (view, { props }) => {
+const addLayer = (view, { props, popupTemplate }) => {
   const lyr = new FeatureLayer({ ...props })
 
   const prevLayer = view.map.findLayerById(props.id)
@@ -84,7 +84,7 @@ const addLayer = (view, { props }) => {
   view.map.add(lyr)
   lyr.when((layer) => {
     layer.popupEnabled = true
-    layer.popupTemplate = { title: layer.title, content: `OBJECTID` } //TODO: popupTemplate from config object
+    layer.popupTemplate = popupTemplate || { title: layer.title, content: 'OBJECTID' } // TODO: popupTemplate from config object
   })
 }
 
@@ -182,7 +182,3 @@ export const addEditorWidget = (view, layerInfos) => {
 
   view.ui.add(editorExpand, 'top-right')
 }
-
-
-
-

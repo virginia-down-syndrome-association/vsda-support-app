@@ -1,4 +1,3 @@
-
 import { Grid } from 'semantic-ui-react'
 import MapViewComponent from '@/components/global/organisms/map/MapViewComponent'
 import DataSidepane from './organisms/DataSidepane'

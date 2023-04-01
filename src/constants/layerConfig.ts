@@ -29,6 +29,21 @@ export const constituents: FeatureLayerConfig = {
       }
     },
     url: 'https://services3.arcgis.com/eyU1lVcSnKSGItET/arcgis/rest/services/constituent/FeatureServer/0',
-    id: 'constituents'
+    id: 'constituents',
+    outFields: ['*']
+  },
+  popupTemplate: {
+    title: "My Popup Title",
+    content: "My Popup Content",
+    actions: [
+      {
+        title: "My Action",
+        id: "my-action",
+        className: "esri-icon-check-mark",
+        execute: function () {
+          console.log("Action clicked!");
+        }
+      }
+    ]
   }
 }
