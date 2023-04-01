@@ -10,8 +10,8 @@ export default function CountySelector () {
   const countryOptions = [
     { key: 'all', value: 'all', text: 'All Counties' },
     { key: 'Fredericksburg', value: 'Fredericksburg', text: 'City of Fredericksburg' },
-    { key: 'Stafford', value: 'Stafford', text: 'Stafford' },
-    { key: 'Henrico', value: 'Henrico', text: 'Henrico' }
+    { key: 'Culpepper', value: 'Culpepper', text: 'Culpepper' },
+    { key: 'Fairfax', value: 'Fairfax', text: 'Fairfax' }
   ]
 
   return (

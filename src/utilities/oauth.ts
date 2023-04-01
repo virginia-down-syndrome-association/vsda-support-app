@@ -1,8 +1,7 @@
 // redux
-import { LocalCredential } from '@/store/reducers/auth'
-
+import { type LocalCredential } from '@/store/reducers/auth'
 // arcgis
-import Credential from '@arcgis/core/identity/Credential'
+import type Credential from '@arcgis/core/identity/Credential'
 import IdentityManager from '@arcgis/core/identity/IdentityManager'
 import OAuthInfo from '@arcgis/core/identity/OAuthInfo'
 import Portal from '@arcgis/core/portal/Portal'
@@ -113,6 +112,8 @@ export const initAuthenticationOrReturnLocalCredential = async (
     const localCredential: LocalCredential = {
       token: fetchedCredential.token,
       userId: fetchedCredential.userId,
+      server: fetchedCredential.server,
+      expires: fetchedCredential.expires
     }
     return localCredential
   } catch (e) {
@@ -129,4 +130,8 @@ export const fetchUser = async () => {
   } catch (error) {
     console.log(error)
   }
+}
+
+export function refreshMapToken (session: any) {
+  IdentityManager.registerToken(session.toCredential())
 }

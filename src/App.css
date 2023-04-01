@@ -1,21 +1,15 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+::-webkit-scrollbar {
+  width: 10px; /* width of the scrollbar */
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
+::-webkit-scrollbar-thumb {
+  background-color: blue; /* color of the thumb */
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+
+::-webkit-scrollbar-track {
+  background-color: white; /* color of the track */
 }
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
+
 
 @keyframes logo-spin {
   from {

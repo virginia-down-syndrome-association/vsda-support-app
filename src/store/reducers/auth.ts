@@ -2,12 +2,14 @@
 export type LocalCredential = {
   token?: string
   userId?: string
+  server?: string
+  expires?: number
 }
 type AuthState = {
   credential: LocalCredential
 }
 const authStateInit: AuthState = {
-  credential: {},
+  credential: {}
 }
 
 type AuthActionType = 'AUTH_STATE_SET_CREDENTIAL'
@@ -24,7 +26,7 @@ const authReducer = (state = authStateInit, action: AuthAction) => {
       const credential = action.payload as LocalCredential
       newState = {
         ...state,
-        credential,
+        credential
       }
       return newState
 
@@ -40,5 +42,5 @@ export const setLocalCredential = (
   credential: LocalCredential
 ): AuthAction => ({
   type: 'AUTH_STATE_SET_CREDENTIAL',
-  payload: credential,
+  payload: credential
 })

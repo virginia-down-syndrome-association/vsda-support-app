@@ -1,8 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-
-// types and variables
-type SexType = 'male' | 'female' | 'all'
+import { type SexType } from '../../typings/rest'
 
 type AgePayload = {
   minAge: number
@@ -14,13 +12,15 @@ type FilterState = {
   maxAge: number
   county: string
   sex: SexType
+  currentFeatures: any[]
 }
 
 const initialState: FilterState = {
   minAge: 0,
   maxAge: 100,
   county: 'all',
-  sex: 'all'
+  sex: 'all',
+  currentFeatures: []
 }
 
 const filterSlice = createSlice({
@@ -41,10 +41,16 @@ const filterSlice = createSlice({
     },
     resetFilterState (state) {
       state = initialState
+    },
+    setCurrentFeatures (state, action: PayloadAction<any[]>) {
+      state.currentFeatures = action.payload
+    },
+    clearCurrentFeatures (state) {
+      state.currentFeatures = []
     }
   }
 })
 
 const { actions, reducer } = filterSlice
-export const { setAge, setCounty, setSex, resetFilterState } = actions
+export const { setAge, setCounty, setSex, resetFilterState, setCurrentFeatures, clearCurrentFeatures } = actions
 export default reducer

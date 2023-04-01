@@ -10,18 +10,6 @@ export default function AgeSelector () {
     dispatch(setAge({ minAge, maxAge }))
   }, [])
 
-  // useEffect(() => {
-  //   if (constituentsLayer) {
-  //     const { minBirthDate, maxBirthDate } = translateAgeToDate(minAge, maxAge)
-  //     // eslint-disable-next-line quotes
-  //     const where = `Birthdate >= '${minBirthDate}' AND Birthdate <= '${maxBirthDate}'`
-  //     console.log(where)
-  //     constituentsLayer.filter = {
-  //       where
-  //     }
-  //   }
-  // }, [minAge, maxAge, constituentsLayer])
-
   return (
     <SliderView onSliderValuesChange={onAgeChange} sliderMinValue={0} sliderMaxValue={100} />
   )

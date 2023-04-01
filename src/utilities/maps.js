@@ -1,10 +1,17 @@
 import Map from '@arcgis/core/Map'
 import MapView from '@arcgis/core/views/MapView'
 import Extent from '@arcgis/core/geometry/Extent'
+import BasemapGallery from '@arcgis/core/widgets/BasemapGallery'
+import Basemap from '@arcgis/core/Basemap'
+import LocalBasemapsSource from '@arcgis/core/widgets/BasemapGallery/support/LocalBasemapsSource'
+import Expand from '@arcgis/core/widgets/Expand'
 import BasemapToggle from '@arcgis/core/widgets/BasemapToggle'
 import Search from '@arcgis/core/widgets/Search'
 import FeatureLayer from '@arcgis/core/layers/FeatureLayer'
-import { MapConfig, agolItemsPublic, agolItems } from '@/constants/appConfig'
+import LayerList from '@arcgis/core/widgets/LayerList'
+import Legend from '@arcgis/core/widgets/Legend'
+import Editor from '@arcgis/core/widgets/Editor'
+import { MapConfig, agolItemsPublic } from '@/constants/appConfig'
 
 const app = {}
 
@@ -49,36 +56,12 @@ export async function initView (container, map) {
   return view
 }
 
-export const addConstituentsLayer = (map, view, setConstituentsLayer) => {
-  const constituentRenderer = {
-    type: 'simple', // autocasts as new SimpleRenderer()
-    symbol: {
-      type: 'simple-marker', // autocasts as new SimpleMarkerSymbol()
-      size: 10,
-      color: 'yellow',
-      outline: { // autocasts as new SimpleLineSymbol()
-        width: 3,
-        color: 'gray'
-      }
-    }
-  }
-
-  const url = agolItems.rest.constituents
-  const constituentsLayer = new FeatureLayer({
-    url,
-    renderer: constituentRenderer
-  })
-  map.add(constituentsLayer)
-  view.whenLayerView(constituentsLayer).then((layerView) => {
-    setConstituentsLayer(layerView)
-  })
-}
-
 export const addContextStates = (map) => {
   const url = agolItemsPublic.rest.states
   const states = new FeatureLayer({
     url,
-    definitionExpression: "STATE_ABBR = 'VA'"
+    definitionExpression: "STATE_ABBR = 'VA'",
+    outFields: ['*']
   })
 
   map.add(states)
@@ -89,4 +72,113 @@ export async function initMap (config) {
   const map = new Map(config)
   app.map = map // should set in redux instead
   return map
+}
+
+const addLayer = (view, { props, popupTemplate }) => {
+  const lyr = new FeatureLayer({ ...props })
+
+  const prevLayer = view.map.findLayerById(props.id)
+  if (prevLayer) {
+    view.map.remove(prevLayer)
+  }
+  view.map.add(lyr)
+  lyr.when((layer) => {
+    layer.popupEnabled = true
+    layer.popupTemplate = popupTemplate || { title: layer.title, content: 'OBJECTID' } // TODO: popupTemplate from config object
+  })
+}
+
+export const handleLayerInstantiation = (view, layers) => {
+  layers.forEach(layer => {
+    addLayer(view, layer)
+  })
+}
+
+export const setBasemapGallery = (view) => {
+  const basemapGallery = new BasemapGallery({
+    source: new LocalBasemapsSource({
+      basemaps: [
+        Basemap.fromId('hybrid'),
+        Basemap.fromId('topo-vector'),
+        Basemap.fromId('gray-vector'),
+        Basemap.fromId('streets-vector')
+      ]
+    }),
+    view: view
+  })
+
+  const layerListExpand = new Expand({
+    content: basemapGallery,
+    view,
+    group: 'main-widgets'
+  })
+
+  view.ui.add(layerListExpand, {
+    position: 'top-right',
+    index: 1
+  })
+}
+
+export const addSearch = (view) => {
+  const search = new Search({ // Add Search widget
+    view,
+    index: 0
+  })
+
+  const searchExpand = new Expand({
+    content: search,
+    group: 'layer-list-expand',
+    view,
+    expandTooltip: 'Layers'
+  })
+
+  view.ui.add(searchExpand, 'top-right')
+}
+
+export const addLayerList = (view, handler) => {
+  const layerList = new LayerList({
+    id: 'layer-list',
+    view,
+    listItemCreatedFunction: handler || null
+  })
+
+  const layerListExpand = new Expand({
+    content: layerList,
+    group: 'layer-list-expand',
+    view,
+    expandTooltip: 'Layers'
+  })
+
+  view.ui.add(layerListExpand, 'top-right')
+}
+
+export const addLegend = (view) => {
+  const legend = new Legend({
+    id: 'layer-legend',
+    view
+  })
+
+  const legendExpand = new Expand({
+    content: legend,
+    group: 'legend-expand',
+    view,
+    expandTooltip: 'Legend'
+  })
+
+  view.ui.add(legendExpand, 'top-right')
+}
+
+export const addEditorWidget = (view, layerInfos) => {
+  const editor = new Editor({
+    view,
+    layerInfos
+  })
+  const editorExpand = new Expand({
+    content: editor,
+    group: 'editor-expand',
+    view,
+    expandTooltip: 'Editor'
+  })
+
+  view.ui.add(editorExpand, 'top-right')
 }

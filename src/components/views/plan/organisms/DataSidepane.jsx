@@ -5,7 +5,7 @@ import TabController from './TabController'
 
 import '../style.scss'
 
-export default function ExploreDataSidepane (props) {
+export default function DataSidepane (props) {
   return (
     <>
       <div className='sidepaneHeader__container'>

@@ -18,6 +18,10 @@
   position: relative;
 }
 
+.clearBtn__wrapper{
+  display: flex;
+  justify-content: center;
+}
 
 .tab__wrapper{
   display: flex;
@@ -35,6 +39,16 @@
  
 }
 
+.checkbox__wrapper{
+  align-items: center;
+  display: flex;
+
+}
+
+.placeholderWrapper{
+  margin: 1rem;
+}
+
 .filterWarning__container{
   min-height: fit-content !important;
 }
@@ -44,6 +58,16 @@
   flex-grow: 1;
   // justify-content: space-around;
   // width: 100%;
+}
+
+.participantItem__card{
+  display: flex;
+  flex-direction: row !important;
+  padding-left: .5rem !important;
+}
+
+.participantItem__wrapper{
+  margin-bottom: .5rem;
 }
 
 .tab__container{
@@ -64,6 +88,7 @@
   flex: 1 1 auto;
   overflow-y: auto;
   height: 0px;
+  padding: 1rem;
 }
 
 .dataFilter__container{
