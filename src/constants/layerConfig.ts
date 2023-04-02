@@ -31,19 +31,20 @@ export const constituents: FeatureLayerConfig = {
     url: 'https://services3.arcgis.com/eyU1lVcSnKSGItET/arcgis/rest/services/constituent/FeatureServer/0',
     id: 'constituents',
     outFields: ['*']
-  },
-  popupTemplate: {
-    title: "My Popup Title",
-    content: "My Popup Content",
-    actions: [
-      {
-        title: "My Action",
-        id: "my-action",
-        className: "esri-icon-check-mark",
-        execute: function () {
-          console.log("Action clicked!");
-        }
-      }
-    ]
   }
+  // popupTemplate: {
+  //   title: "My Popup Title",
+  //   content: "My Popup Content", 
+  //   actions: [
+  //     {
+  //       title: "View Participant Information in the Research view",
+  //       id: "my-action",
+  //       className: "esri-icon-check-mark",
+  //       overwriteActions: true,
+  //       execute: function () {
+  //         console.log("Action clicked!");
+  //       }
+  //     }
+  //   ]
+  // }
 }

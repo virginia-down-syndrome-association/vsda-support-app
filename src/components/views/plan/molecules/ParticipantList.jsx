@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { Checkbox, Card, List, Image, Placeholder } from 'semantic-ui-react'
 import ParticipantListActions from './ParticipantListActions'
 import { calculateAgeFromTimestamp } from '@/utilities/filters'
+import { setSelectedFeatures, clearSelectedFeatures } from '@/store/reducers/filters'
+import store from '@/store'
 import '../style.scss'
 
 const useParticipantFriendlyFeatures = () => {
   const { currentFeatures } = useSelector(state => state.filters)
+
   const [features, setFeatures] = useState(currentFeatures)
 
   useEffect(() => {
@@ -28,15 +31,25 @@ const useParticipantFriendlyFeatures = () => {
   }
 }
 
-const ParticipantCard = ({ feature, onEvent, selection }) => {
+const ParticipantCard = ({ feature, onEvent, selectedFeatures }) => {
   // const [checked, setChecked] = useState(false)
   // useEffect(() => {
   //   onEvent({ id: feature.id, checked })
   // }, [checked])
 
   const getValue = (id) => {
-    return !!((selection && selection.find((item) => item === feature.id)))
+    return !!((selectedFeatures && selectedFeatures.find((item) => item === feature.id)))
   }
+  const calcDistance = (id) => {
+    const { matrixLookup } = store.getState().filters
+    if (matrixLookup?.length > 0) {
+      const { duration } = matrixLookup.find((item) => item.id === id)
+      return `${duration} minute drive to last searched location`
+    }
+    return 'default'
+    // return item ? item.time : 'N/A'
+  }
+
 
   return (
     <List.Item key={feature.id} className="participantItem__wrapper" >
@@ -57,6 +70,7 @@ const ParticipantCard = ({ feature, onEvent, selection }) => {
           <Card.Header className='cardHeader'>{feature.name}</Card.Header>
           <Card.Meta>Age: {feature.age}</Card.Meta>
           <Card.Meta>Sex: {feature.sex}</Card.Meta>
+          <Card.Meta>Distance to: {calcDistance(feature.id)}</Card.Meta>
         </Card.Content>
 
       </Card>
@@ -66,7 +80,7 @@ const ParticipantCard = ({ feature, onEvent, selection }) => {
 
 const PlaceholderExamplePlaceholder = () => (
   <Placeholder className='placeholderWrapper'>
-    <Placeholder.Header image>
+    <Placeholder.Header image>,
       <Placeholder.Line />
       <Placeholder.Line />
     </Placeholder.Header>
@@ -92,36 +106,36 @@ const PlaceholderExamplePlaceholder = () => (
 )
 
 export default function ParticipantList () {
+  const dispatch = useDispatch()
+  const { selectedFeatures } = useSelector(state => state.filters)
   const { features } = useParticipantFriendlyFeatures()
-
-  const [selection, setSelection] = useState([])
 
   function handleChildSelection ({ checked, id }) {
     if (checked) {
-      setSelection([...selection, id])
+      dispatch(setSelectedFeatures([...selectedFeatures, id]))
     } else {
-      setSelection(selection.filter((item) => item !== id) || [])
+      dispatch(setSelectedFeatures(selectedFeatures.filter((item) => item !== id) || []))
     }
   }
 
   function binarySelection ({ checked }) {
     if (checked) {
       const ids = features.map((feature) => feature.id)
-      setSelection(ids)
+      dispatch(setSelectedFeatures(ids))
     } else {
-      setSelection([])
+      dispatch(clearSelectedFeatures())
     }
   }
 
   return (
     <>
       <div className='participantList__container'>
-        <ParticipantListActions onEvent={binarySelection} selection={selection} features={features} />
+        <ParticipantListActions onEvent={binarySelection} selectedFeatures={selectedFeatures} features={features} />
         <List>
           {!features?.length && <PlaceholderExamplePlaceholder key="placeholder" />}
           {
             features?.length && features.map(feature => (
-              <ParticipantCard selection={selection} key={feature.id} feature={feature} onEvent={handleChildSelection} />
+              <ParticipantCard selectedFeatures={selectedFeatures} key={feature.id} feature={feature} onEvent={handleChildSelection} />
             ))
           }
         </List>

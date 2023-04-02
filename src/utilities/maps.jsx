@@ -12,8 +12,35 @@ import LayerList from '@arcgis/core/widgets/LayerList'
 import Legend from '@arcgis/core/widgets/Legend'
 import Editor from '@arcgis/core/widgets/Editor'
 import { MapConfig, agolItemsPublic } from '@/constants/appConfig'
+import store from '../store'
+import { setMatrixLookup } from '@/store/reducers/filters'
 
 const app = {}
+
+const generateMatrixFromParticipants = async ({ latitude, longitude }) => {
+  const { selectedFeatures, currentFeatures } = store.getState().filters
+  const destinations = selectedFeatures.map((id) => {
+    const { geometry: { latitude, longitude } } = currentFeatures.find((feature) => feature.attributes.OBJECTID === id)
+    return {
+      id,
+      coords: [longitude, latitude]
+    }
+  })
+
+  const response = await fetch('http://localhost:3000/matrix', {
+    method: 'POST',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      origin: [longitude, latitude],
+      destinations
+    })
+  })
+  const data = await response.json()
+  return data
+}
 
 export async function initView (container, map) {
   const config = {
@@ -94,6 +121,16 @@ export const handleLayerInstantiation = (view, layers) => {
   })
 }
 
+const handleMatrixResults = (results) => {
+  try {
+    const { destinations } = results
+    store.dispatch(setMatrixLookup(destinations))
+  } catch (e) {
+    console.error('Error in the Clientside handler for Matrix results', e)
+  }
+}
+
+
 export const setBasemapGallery = (view) => {
   const basemapGallery = new BasemapGallery({
     source: new LocalBasemapsSource({
@@ -120,9 +157,20 @@ export const setBasemapGallery = (view) => {
 }
 
 export const addSearch = (view) => {
+  const searchActionId = 'route-to-selected-participants'
   const search = new Search({ // Add Search widget
     view,
-    index: 0
+    index: 0,
+    popupTemplate: {
+      title: 'Search Results',
+      actions: [
+        {
+          title: 'Calculate distance to selected partipants',
+          id: searchActionId,
+          className: 'esri-icon-check-mark'
+        }
+      ]
+    }
   })
 
   const searchExpand = new Expand({
@@ -130,6 +178,15 @@ export const addSearch = (view) => {
     group: 'layer-list-expand',
     view,
     expandTooltip: 'Layers'
+  })
+  // Event handler that fires each time an action is clicked.
+  view.popup.on('trigger-action', async (event) => {
+    // Execute the measureThis() function if the measure-this action is clicked
+    if (event.action.id === searchActionId) {
+      const { location } = view.popup.viewModel
+      const results = await generateMatrixFromParticipants(location)
+      handleMatrixResults(results)
+    }
   })
 
   view.ui.add(searchExpand, 'top-right')

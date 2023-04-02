@@ -13,6 +13,8 @@ type FilterState = {
   county: string
   sex: SexType
   currentFeatures: any[]
+  selectedFeatures: any[]
+  matrixLookup: any[]
 }
 
 const initialState: FilterState = {
@@ -20,7 +22,9 @@ const initialState: FilterState = {
   maxAge: 100,
   county: 'all',
   sex: 'all',
-  currentFeatures: []
+  currentFeatures: [],
+  selectedFeatures: [],
+  matrixLookup: []
 }
 
 const filterSlice = createSlice({
@@ -47,10 +51,34 @@ const filterSlice = createSlice({
     },
     clearCurrentFeatures (state) {
       state.currentFeatures = []
+    },
+    setSelectedFeatures (state, action: PayloadAction<any[]>) {
+      state.selectedFeatures = action.payload
+    },
+    clearSelectedFeatures (state) {
+      state.selectedFeatures = []
+    },
+    setMatrixLookup(state, action: PayloadAction<any[]>) {
+      state.matrixLookup = action.payload
+    },
+    clearMatrixLookup(state) {
+      state.matrixLookup = []
     }
   }
 })
 
 const { actions, reducer } = filterSlice
-export const { setAge, setCounty, setSex, resetFilterState, setCurrentFeatures, clearCurrentFeatures } = actions
+export const {
+  setAge,
+  setCounty,
+  setSex,
+  resetFilterState,
+  setCurrentFeatures,
+  clearCurrentFeatures,
+  setSelectedFeatures,
+  clearSelectedFeatures,
+  setMatrixLookup,
+  clearMatrixLookup
+} = actions
+
 export default reducer

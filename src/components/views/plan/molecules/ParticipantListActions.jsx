@@ -1,8 +1,7 @@
 import { Checkbox, Divider } from 'semantic-ui-react'
 
-export default function ParticipantListActions ({ onEvent, selection, features }) {
-  console.log(selection)
-  const allSelected = selection.length === features.length
+export default function ParticipantListActions ({ onEvent, selectedFeatures, features }) {
+  const allSelected = selectedFeatures.length === features.length
 
   const handleClick = () => {
     onEvent({ checked: !allSelected })
