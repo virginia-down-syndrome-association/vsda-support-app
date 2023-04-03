@@ -160,7 +160,7 @@ const zoomToBBox = (bbox) => {
     spatialReference: {
       wkid: 4326
     }
-  }).expand(1)
+  }).expand(2)
 
   view.goTo(newExtent, {
     easing: 'ease-in-out',

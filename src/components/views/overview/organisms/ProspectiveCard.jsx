@@ -95,9 +95,9 @@ export default function ProspectiveCard (props) {
                   <Feed.Label > <Icon size='tiny' name="exchange" /> </Feed.Label>
                   <Feed.Content>
                     <Feed.Date>{`${prospect.outreachContact} (${prospect.relationship}) reached out ${prospect.daysSinceOutreach} day ago`}</Feed.Date>
-                    { prospect.participantContact.firstName && <Feed.Summary>
-                      <a>{`${prospect.participantContact.firstName} ${prospect.participantContact.lastName} (${prospect.participantContact.age} year old ${prospect.participantContact.firstName})`}</a>
-                    </Feed.Summary> }
+                    { prospect.participantContact.firstName && <Feed.Event>
+                      {`(Regarding ${prospect.participantContact.age} year old ${prospect.participantContact.firstName} ${prospect.participantContact.lastName})`}
+                    </Feed.Event> }
                     <Feed.Meta>
                       {`Prefers outreach over ${prospect.preferredOutreach}`}
                     </Feed.Meta>

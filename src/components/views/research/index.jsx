@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { Grid } from 'semantic-ui-react'
 import MapViewComponent from '@/components/global/organisms/map/MapViewComponent'
+import ResearchSidepane from './organisms/ResearchSidepane'
 import { agolItems } from '../../../constants/appConfig'
 import { useSelector } from 'react-redux'
 
@@ -24,10 +25,10 @@ export default function Research (props) {
     <React.Fragment>
       <React.Fragment>
         <Grid className='full-height' columns='two' divided>
-          <Grid.Column className="first-col" width="7">
-            First Column
+          <Grid.Column className="first-col" width="6">
+            <ResearchSidepane />
           </Grid.Column>
-          <Grid.Column className="second-col"width="9">
+          <Grid.Column className="second-col"width="10">
             <MapViewComponent
               mapProps={ mapProps }
               mapViewProps={{}}
