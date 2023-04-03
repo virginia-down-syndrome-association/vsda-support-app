@@ -8,12 +8,14 @@ import Expand from '@arcgis/core/widgets/Expand'
 import BasemapToggle from '@arcgis/core/widgets/BasemapToggle'
 import Search from '@arcgis/core/widgets/Search'
 import FeatureLayer from '@arcgis/core/layers/FeatureLayer'
+import GeoJSONLayer from '@arcgis/core/layers/GeoJSONLayer'
 import LayerList from '@arcgis/core/widgets/LayerList'
 import Legend from '@arcgis/core/widgets/Legend'
 import Editor from '@arcgis/core/widgets/Editor'
 import { MapConfig, agolItemsPublic } from '@/constants/appConfig'
 import store from '../store'
 import { setMatrixLookup } from '@/store/reducers/filters'
+import { setLoadingStatus } from '@/store/reducers/notifications'
 
 const app = {}
 
@@ -121,15 +123,50 @@ export const handleLayerInstantiation = (view, layers) => {
   })
 }
 
+const handleCircleRoutes = (circleRoutes) => {
+  const { view } = store.getState().map
+
+  const blob = new Blob([JSON.stringify(circleRoutes)], {
+    type: 'application/json'
+  })
+  // URL reference to the blob
+  const url = URL.createObjectURL(blob)
+  // create new geojson layer using the blob url
+  const layer = new GeoJSONLayer({
+    url,
+    id: 'circleRoutes'
+  })
+  view.map.add(layer)
+}
+
 const handleMatrixResults = (results) => {
   try {
-    const { destinations } = results
+    const { destinations, circleRoutes } = results
+    handleCircleRoutes(circleRoutes)
     store.dispatch(setMatrixLookup(destinations))
   } catch (e) {
     console.error('Error in the Clientside handler for Matrix results', e)
   }
 }
 
+const zoomToBBox = (bbox) => {
+  const { view } = store.getState().map
+  const [xmin, ymin, xmax, ymax] = bbox
+  const newExtent = new Extent({
+    xmin,
+    ymin,
+    xmax,
+    ymax,
+    spatialReference: {
+      wkid: 4326
+    }
+  }).expand(1)
+
+  view.goTo(newExtent, {
+    easing: 'ease-in-out',
+    duration: 2000
+  })
+}
 
 export const setBasemapGallery = (view) => {
   const basemapGallery = new BasemapGallery({
@@ -184,8 +221,16 @@ export const addSearch = (view) => {
     // Execute the measureThis() function if the measure-this action is clicked
     if (event.action.id === searchActionId) {
       const { location } = view.popup.viewModel
-      const results = await generateMatrixFromParticipants(location)
-      handleMatrixResults(results)
+      try {
+        store.dispatch(setLoadingStatus(true))
+        const results = await generateMatrixFromParticipants(location)
+        handleMatrixResults(results)
+        zoomToBBox(results.bbox)
+      } catch (e) {
+        console.error('Error in the Clientside handler for Matrix results', e)
+      } finally {
+        store.dispatch(setLoadingStatus(false))
+      }
     }
   })
 

@@ -9,10 +9,12 @@ export type StatusTypes = 'success' | 'failure'
 
 type notificationState = {
   status: StatusTypes
+  loading: boolean
 }
 
 const notificationStateInit: notificationState = {
   status: 'success',
+  loading: false
 }
 
 type StatusNotificationActionType = 'NOTIFICATION_STATE_STATUS_NOTIFICATION'
@@ -21,9 +23,15 @@ type StatusNotificationAction = {
   payload?: any
 }
 
+type SetLoaderActionType = 'SET_LOADING_STATUS'
+type SetLoaderAction = {
+  type: SetLoaderActionType
+  payload?: boolean
+}
+
 const notificationReducer = (
   state = notificationStateInit,
-  action: StatusNotificationAction
+  action: StatusNotificationAction | SetLoaderAction
 ) => {
   let newState: notificationState = state
   switch (action.type) {
@@ -37,9 +45,10 @@ const notificationReducer = (
           closeOnClick: true,
           pauseOnHover: true,
           type: 'success',
-          theme: 'light',
+          theme: 'light'
         })
-      } else if (status === 'failure') {
+      }
+      else if (status === 'failure') {
         toast(msg, {
           position: 'top-right',
           autoClose: 5000,
@@ -47,12 +56,23 @@ const notificationReducer = (
           closeOnClick: true,
           pauseOnHover: true,
           type: 'error',
-          theme: 'light',
+          theme: 'light'
         })
       }
-
-    default:
       return newState
+      break
+
+  case 'SET_LOADING_STATUS':
+    const loaderStatus = action.payload as boolean
+      newState = {
+      ...state,
+      loading: loaderStatus
+    }
+    return newState
+    break
+
+  default:
+    return newState
   }
 }
 
@@ -63,5 +83,13 @@ export const setNotificationStatus = (
   status: StatusTypes
 ): StatusNotificationAction => ({
   type: 'NOTIFICATION_STATE_STATUS_NOTIFICATION',
-  payload: status,
+  payload: status
+})
+
+// actions
+export const setLoadingStatus = (
+  status: boolean
+): SetLoaderAction => ({
+  type: 'SET_LOADING_STATUS',
+  payload: status
 })

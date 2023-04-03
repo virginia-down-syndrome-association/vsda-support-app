@@ -50,7 +50,6 @@ const ParticipantCard = ({ feature, onEvent, selectedFeatures }) => {
     // return item ? item.time : 'N/A'
   }
 
-
   return (
     <List.Item key={feature.id} className="participantItem__wrapper" >
       <Card fluid className='participantItem__card'>

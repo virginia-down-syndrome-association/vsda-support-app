@@ -58,10 +58,10 @@ const filterSlice = createSlice({
     clearSelectedFeatures (state) {
       state.selectedFeatures = []
     },
-    setMatrixLookup(state, action: PayloadAction<any[]>) {
+    setMatrixLookup (state, action: PayloadAction<any[]>) {
       state.matrixLookup = action.payload
     },
-    clearMatrixLookup(state) {
+    clearMatrixLookup (state) {
       state.matrixLookup = []
     }
   }
