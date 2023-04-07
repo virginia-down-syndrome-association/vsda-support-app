@@ -1,3 +1,10 @@
+
+.research-sidepane__wrapper{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
 .task-list-item {
   padding-top: 1rem !important;
   padding-bottom: 1rem !important;
@@ -43,10 +50,6 @@
   padding-left: .5rem;
 }
 
-.research-sidepane__wrapper{
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
 
 .sidepaneHeader__container{
   position: relative;
@@ -54,7 +57,26 @@
 }
 
 .tab__wrapper{
-  display: flex;
-  flex: 1;
+  // flex: 1 1 auto;
+  // overflow-y: auto;
+  // height: 0px;
+  // padding: 1rem;
+  padding-left: 14px;
+  padding-right: 14px;
+  height: 100%;
+}
+
+.cardHeader {
+  height: fit-content !important;
+}
+
+.summary__container{
+  display: flex !important;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.profileGrid{
+  margin: 0px !important;
 }
