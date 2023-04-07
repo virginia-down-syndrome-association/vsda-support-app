@@ -1,6 +1,6 @@
 import { Segment } from 'semantic-ui-react'
 import DefaultCard from '../molecules/DefaultCard'
-import ProfileCard from '../molecules/ParticipantSummary'
+import ProfileCard from '../molecules/ActiveParticipantSummary'
 import MedicalCard from '../molecules/MedicalCard'
 import AdvocacyCard from '../molecules/AdvocacyCard'
 

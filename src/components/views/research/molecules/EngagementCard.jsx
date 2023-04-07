@@ -1,7 +1,7 @@
 import { Accordion, Icon } from 'semantic-ui-react'
 import '../style.scss'
 
-export default function ProfileCard () {
+export default function EngagementCard () {
   return (
     <>
       <div>

@@ -50,10 +50,20 @@
   padding-left: .5rem;
 }
 
+.locationSummary{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding-left: 3rem;
+}
 
 .sidepaneHeader__container{
   position: relative;
   flex: 0;
+}
+.rowSpan{
+  display: flex;
+  flex-direction: row;
 }
 
 .tab__wrapper{
