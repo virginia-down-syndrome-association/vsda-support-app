@@ -47,3 +47,14 @@
   padding-left: 1rem;
   padding-right: 1rem;
 }
+
+.sidepaneHeader__container{
+  position: relative;
+  flex: 0;
+}
+
+.tab__wrapper{
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
