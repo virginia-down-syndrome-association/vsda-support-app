@@ -1,0 +1,23 @@
+.manageGrid__wrapper {
+  padding: 1rem 2rem 1rem 2rem !important;
+
+}
+
+.resourceCard__wrapper{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.manageGrid__row{
+  margin-bottom: 1.5rem;
+}
+
+.eventList{
+  width: 100%;
+  padding: 1.5rem !important;
+  max-height: 650px;
+  min-height: 650px;
+  overflow-y: scroll;
+}

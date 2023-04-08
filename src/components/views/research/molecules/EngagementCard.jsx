@@ -5,9 +5,6 @@ export default function EngagementCard () {
   return (
     <>
       <div>
-        <div>age</div>
-        <div>sex</div>
-
         <Accordion styled>
           <Accordion.Title
             active={false}

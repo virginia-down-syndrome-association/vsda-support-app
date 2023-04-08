@@ -1,9 +1,10 @@
 import { Accordion, Icon } from 'semantic-ui-react'
 import '../style.scss'
+
 export default function AdvocacyCard () {
   return (
     <>
-      <Accordion styled>
+      <Accordion exclusive={false} styled>
         <Accordion.Title
           active={false}
           index={0}

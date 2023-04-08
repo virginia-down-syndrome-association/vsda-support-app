@@ -6,7 +6,7 @@ import ProspectiveCard from './organisms/ProspectiveCard'
 import CurrentActivityCard from './organisms/RecentActivityCard'
 import MetricsCard from './organisms/MetricsCard'
 
-export default function Overview (props) {
+export default function Home (props) {
   return (
     <div className='overviewView__container'>
       <Grid>

@@ -1,92 +1,22 @@
-import React, { useEffect } from 'react'
-import { Grid } from 'semantic-ui-react'
+/* eslint-disable space-infix-ops */
+import React, { useEffect} from 'react'
+import { Grid, Container, Header } from 'semantic-ui-react'
 import MapViewComponent from '@/components/global/organisms/map/MapViewComponent'
-import { constituents, prospectiveConstituents } from '../../../constants/layerConfig'
-import { agolItems } from '../../../constants/appConfig'
-import { addEditorWidget } from '@/utilities/maps'
+import DataResources from './molecules/DataResources'
+import IntakeResources from './molecules/IntakeResources'
+import OutreachResources from './molecules/OutreachResources'
+import ProgramResources from './molecules/ProgramResources'
+import ManageEvents from './molecules/ManageEvents'
 import { useSelector } from 'react-redux'
+import { agolItems } from '@/constants/appConfig'
 import './style.scss'
-
-const participantInfos = {
-  formTemplate: { // autocasts to FormTemplate
-    elements: [{ // autocasts to Field Elements
-      type: 'field',
-      fieldName: 'CF_FamilyID',
-      label: 'Family ID'
-    }, {
-      type: 'field',
-      fieldName: 'ConstituentNumber',
-      label: 'Constituent Number'
-    }, {
-      type: 'field',
-      fieldName: 'SpecialInstructions',
-      label: 'Special Instructions'
-    }, {
-      type: 'field',
-      fieldName: 'Birthdate',
-      label: 'Date of Birth'
-    }, {
-      type: 'field',
-      fieldName: 'Sex',
-      label: 'Sex'
-    }]
-  }
-}
-
-const prospectiveParticipantInfos = {
-  formTemplate: { // autocasts to FormTemplate
-    elements: [{ // autocasts to Field Elements
-      type: 'field',
-      fieldName: 'name',
-      label: 'Name of Submitter'
-    }, {
-      type: 'field',
-      fieldName: 'Description',
-      label: 'Description'
-    }, {
-      type: 'field',
-      fieldName: 'relationship',
-      label: 'Relationship to Participant'
-    }, {
-      type: 'field',
-      fieldName: 'Status',
-      label: 'Status'
-    }]
-  }
-}
-
-const createInfoFactory = (info, layer) => {
-  return {
-    info,
-    ...layer
-  }
-}
-
-const initManageEditor = (view) => {
-  view.map.loadAll().then(() => {
-    const layerInfos = []
-    view.map.editableLayers.forEach((layer) => {
-      switch (layer.parsedUrl) {
-      case constituents.props.url:
-        layerInfos.push(createInfoFactory(participantInfos, layer))
-        break
-      case prospectiveConstituents.props.url:
-        layerInfos.push(createInfoFactory(prospectiveParticipantInfos, layer))
-        break
-      }
-    })
-    addEditorWidget(view, layerInfos)
-  })
-}
 
 export default function Manage (props) {
   const { view } = useSelector(state => state.map)
 
   useEffect(() => {
     if (view?.ready) {
-      view.when(function (v) {
-        initManageEditor(v)
-      })
+      console.log('ready')
     }
   }, [view])
 
@@ -99,20 +29,45 @@ export default function Manage (props) {
 
   return (
     <React.Fragment>
-      <React.Fragment>
-        <Grid className='full-height full-width' columns='two' divided>
-          <Grid.Column className='gridColumn' width='5'>
-            Sidebar goes here.
-          </Grid.Column>
-          <Grid.Column className='ManageMap__container' width='11'>
-            <MapViewComponent
-              mapProps={mapProps}
-              mapViewProps={{}}
-              mapConsumer='manage'
-            />
-          </Grid.Column>
-        </Grid>
-      </React.Fragment>
+      <Grid className='manageGrid__wrapper'>
+        <Grid.Column width={5}>
+          <MapViewComponent
+            mapProps={mapProps}
+            mapViewProps={{}}
+            mapConsumer='manage'
+          />
+        </Grid.Column>
+        <Grid.Column width={5}>
+          {/* <Header className='cardHeader' as='h3'>VDSA Events</Header> */}
+          <ManageEvents />
+        </Grid.Column>
+        <Grid.Column width={6}>
+          <Grid.Row fluid className='manageGrid__row'>
+            <Container fluid>
+              <Header className='cardHeader' style={{ textAlign: 'center' }} as='h3'>VSDA Program Resources</Header>
+              <ProgramResources />
+            </Container>
+          </Grid.Row>
+          <Grid.Row fluid >
+            <Container className='manageGrid__row' fluid>
+              <Header className='cardHeader' style={{ textAlign: 'center' }} as='h3'>Data-related Resources (Editing)</Header>
+              <DataResources />
+            </Container>
+          </Grid.Row>
+          <Grid.Row fluid className='manageGrid__row'>
+            <Container fluid>
+              <Header className='cardHeader' style={{ textAlign: 'center' }} as='h3'>Intake Resources (Data Collection)</Header>
+              <IntakeResources />
+            </Container>
+          </Grid.Row>
+          <Grid.Row fluid className='manageGrid__row'>
+            <Container fluid>
+              <Header className='cardHeader' style={{ textAlign: 'center' }} as='h3'>Outreach-related Resources (Open Data)</Header>
+              <OutreachResources />
+            </Container>
+          </Grid.Row>
+        </Grid.Column>
+      </Grid>
     </React.Fragment>
   )
 }

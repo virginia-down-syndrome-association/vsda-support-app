@@ -42,7 +42,7 @@ export default function TabController () {
     {
       menuItem: {
         key: 'filters-item',
-        content: 'Medical',
+        content: 'Health',
         icon: 'filter',
         className: 'first-item'
       },
@@ -60,7 +60,7 @@ export default function TabController () {
       menuItem: {
         key: 'active-queue1',
         icon: 'user circle outline',
-        content: 'Participation'
+        content: 'Engagement'
       },
       render: () => EngageCard()
     }
