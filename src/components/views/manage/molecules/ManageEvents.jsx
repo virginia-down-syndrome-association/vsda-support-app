@@ -70,7 +70,7 @@ const sortingOptions = [
     key: 'oldest',
     text: 'Oldest',
     value: 'oldest'
-  },
+  }
 ]
 
 export default function ManageEvents() {
