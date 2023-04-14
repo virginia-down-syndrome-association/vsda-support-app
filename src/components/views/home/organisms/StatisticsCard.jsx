@@ -18,7 +18,7 @@ export default function SummaryCard (props) {
                 <Grid.Column>
                   <ParticipantSexChart />
                 </Grid.Column>
-                <Grid.Column>
+                <Grid.Column className='metricWrapper'>
                   <ParticipantGeographyStats />
                 </Grid.Column>
               </Grid.Row>
