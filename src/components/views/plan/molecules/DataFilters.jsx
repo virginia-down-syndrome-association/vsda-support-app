@@ -6,6 +6,9 @@ import CountySelector from '../atoms/CountySelector'
 import ClearButton from '../atoms/ClearButton'
 import SexSelector from '../atoms/SexSelector'
 import AgeSelector from '../atoms/AgeSelector'
+import { setCurrentFeatures } from '@/store/reducers/filters'
+import useFeatureSetter from '@/utilities/hooks/useFeatureSetter'
+import store from '@/store'
 import '../style.scss'
 
 export default function DataFilters (props) {
@@ -13,11 +16,29 @@ export default function DataFilters (props) {
   const filters = useSelector(state => state.filters)
   const { view } = useSelector(state => state.map)
 
+  // hooks
+  // useFeatureSetter()
+
   useEffect(() => {
     if (filters && view) {
       updateConstituentFilter(view)
     }
   }, [filters, view])
+
+  const updateConstituentFeatures = (view) => {
+    const targetLayerView = view.map.findLayerById('constituents')
+    view.whenLayerView(targetLayerView).then(async function (layerView) {
+      const { features } = await layerView.queryFeatures()
+      store.dispatch(setCurrentFeatures(features))
+    })
+  }
+
+  useEffect(() => {
+    if (view && view.ready) {
+      updateConstituentFeatures(view)
+    }
+  }, [view])
+
   // call updateConstituentFilter when things change
 
   return (

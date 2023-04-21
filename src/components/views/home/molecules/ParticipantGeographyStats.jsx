@@ -9,7 +9,7 @@ export default function GeographicStats (props) {
         <Statistic.Label>External Data Integrations</Statistic.Label>
       </Statistic>
       <Statistic className='statistic'>
-        <Statistic.Value>32</Statistic.Value>
+        <Statistic.Value>13</Statistic.Value>
         <Statistic.Label>Data layers</Statistic.Label>
       </Statistic>
       <Statistic className='statistic'>

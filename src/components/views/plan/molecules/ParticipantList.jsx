@@ -20,7 +20,8 @@ const useParticipantFriendlyFeatures = () => {
         name: `${FirstName} ${LastName}`,
         sex: Sex,
         county: County,
-        age: calculateAgeFromTimestamp(Birthdate)
+        age: calculateAgeFromTimestamp(Birthdate),
+        distance: null
       }
     })
     setFeatures(f)
@@ -42,11 +43,11 @@ const ParticipantCard = ({ feature, onEvent, selectedFeatures }) => {
   }
   const calcDistance = (id) => {
     const { matrixLookup } = store.getState().filters
-    if (matrixLookup?.length > 0) {
-      const { duration } = matrixLookup.find((item) => item.id === id)
-      return `${duration} minute drive to last searched location`
+    if (matrixLookup && matrixLookup?.length > 0) {
+      const item = matrixLookup.find((item) => item.id === id)
+      if (item && item.duration) return `Distance to: ${item.duration} minute drive to last searched location`
     }
-    return 'default'
+    return ''
     // return item ? item.time : 'N/A'
   }
 
@@ -69,7 +70,7 @@ const ParticipantCard = ({ feature, onEvent, selectedFeatures }) => {
           <Card.Header className='cardHeader'>{feature.name}</Card.Header>
           <Card.Meta>Age: {feature.age}</Card.Meta>
           <Card.Meta>Sex: {feature.sex}</Card.Meta>
-          <Card.Meta>Distance to: {calcDistance(feature.id)}</Card.Meta>
+          <Card.Meta>{calcDistance(feature.id)}</Card.Meta>
         </Card.Content>
 
       </Card>

@@ -61,6 +61,7 @@ export const updateConstituentFilter = (view) => {
           where
         })
         const { features } = await layerView.queryFeatures()
+        // SHOULD ALSO QUERY THE FEATURE LAYER
         store.dispatch(setCurrentFeatures(features))
       })
     } else {

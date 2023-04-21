@@ -10,7 +10,7 @@ export default function ParticipantListActions ({ onEvent, selectedFeatures, fea
   }
 
   const handleExportToCsv = () => {
-    console.log('exporting to csv')
+    console.log(features)
     // console.log(features)
     // let csvContent = 'data:text/csv;charset=utf-8,'
 
@@ -39,11 +39,11 @@ export default function ParticipantListActions ({ onEvent, selectedFeatures, fea
             </Button.Content>
           </Button> */}
           <div>
-            <Button icon disabled={selectedFeatures.length === 0} onClick={handleExportToCsv} circular color="gray" size='tiny' labelPosition='left'>
+            <Button icon disabled={selectedFeatures.length === 0} onClick={handleExportToCsv} circular size='tiny' labelPosition='left'>
               <Icon name='download' />
               Download as csv
             </Button>
-            <Popup content='Clear to/from travel lines from map' position='right center' trigger={<Button icon disabled={ matrixLookup.length === 0} onClick={''} circular color="gray" size='tiny'>
+            <Popup content='Clear to/from travel lines from map' position='right center' trigger={<Button icon disabled={ matrixLookup.length === 0} onClick={''} circular size='tiny'>
               <Icon name='trash alternate outline' />
             </Button>} />
           </div>

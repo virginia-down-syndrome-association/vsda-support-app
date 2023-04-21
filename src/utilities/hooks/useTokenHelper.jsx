@@ -24,4 +24,5 @@ function useTokenHelper (props) {
 
   return { token, authentication }
 }
+
 export default useTokenHelper
