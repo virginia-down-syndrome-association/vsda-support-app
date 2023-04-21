@@ -46,6 +46,17 @@ const filterSlice = createSlice({
     resetFilterState (state) {
       state = initialState
     },
+    resetFilters (state, action: PayloadAction<string>) {
+      console.log('resetting filters')
+      const updatedState = {
+        ...state,
+        minAge: 0,
+        maxAge: 100,
+        county: 'all',
+        sex: 'all'
+      }
+      state = updatedState
+    },
     setCurrentFeatures (state, action: PayloadAction<any[]>) {
       state.currentFeatures = action.payload
     },
@@ -73,6 +84,7 @@ export const {
   setCounty,
   setSex,
   resetFilterState,
+  resetFilters,
   setCurrentFeatures,
   clearCurrentFeatures,
   setSelectedFeatures,

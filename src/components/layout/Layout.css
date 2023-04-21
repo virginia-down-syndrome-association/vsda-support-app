@@ -2,4 +2,5 @@
   height: calc(100% - var(--app-header-height));
   position: relative; /*style:tmo*/
   overflow-y: auto;
+  overflow-x: hidden;
 }

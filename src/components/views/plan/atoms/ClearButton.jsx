@@ -1,6 +1,6 @@
 import { Button } from 'semantic-ui-react'
 import { useSelector, useDispatch } from 'react-redux'
-import { clearCurrentFeatures } from '@/store/reducers/filters'
+import { resetFilters } from '@/store/reducers/filters'
 
 const useFilterHelper = () => {
   const filters = useSelector(state => state.filters)
@@ -20,8 +20,12 @@ export default function ClearButton () {
   const { filterSet } = useFilterHelper()
   const dispatch = useDispatch()
 
+  const handleReset = () => {
+    dispatch(resetFilters())
+  }
+
   return (
-    <Button primary circular size="small" disabled={!filterSet} >
+    <Button primary circular size="small" disabled={!filterSet} onClick={handleReset}>
         Clear Filters
     </Button>
   )

@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 import SliderView from 'semantic-ui-react-slider'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setAge } from '@/store/reducers/filters'
 
 export default function AgeSelector () {

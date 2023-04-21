@@ -48,3 +48,32 @@ export const constituents: FeatureLayerConfig = {
   //   ]
   // }
 }
+
+
+export const soviCounties: FeatureLayerConfig = {
+  props: {
+    url: 'https://services3.arcgis.com/ZvidGQkLaDJxRSJ2/ArcGIS/rest/services/CDC_Social_Vulnerability_Index_2018/FeatureServer/1',
+    id: 'soviCounties'
+  }
+}
+
+export const soviTracts: FeatureLayerConfig = {
+  props: {
+    url: 'https://services3.arcgis.com/ZvidGQkLaDJxRSJ2/ArcGIS/rest/services/CDC_Social_Vulnerability_Index_2018/FeatureServer/2',
+    id: 'soviTracts'
+  }
+}
+
+export const affiliateCounts: FeatureLayerConfig = {
+  props: {
+    url: 'https://services3.arcgis.com/eyU1lVcSnKSGItET/arcgis/rest/services/Virginia_Counties/FeatureServer/0',
+    id: 'affiliateCounts' // service_area
+  }
+}
+
+// va_public_schools_k12 - GStandard (k-12 point schools) - Combined, Elementary, High, Middle
+// sld_lower
+// va_census_tracts
+// va_congressional_districts
+// va_census_block_groups
+// events
