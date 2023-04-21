@@ -12,6 +12,7 @@ const useParticipantFriendlyFeatures = () => {
 
   const [features, setFeatures] = useState(currentFeatures)
 
+
   useEffect(() => {
     const f = currentFeatures.map((feature) => {
       const { OBJECTID, FirstName, LastName, Sex, County, Birthdate } = feature.attributes
@@ -20,8 +21,7 @@ const useParticipantFriendlyFeatures = () => {
         name: `${FirstName} ${LastName}`,
         sex: Sex,
         county: County,
-        age: calculateAgeFromTimestamp(Birthdate),
-        distance: null
+        age: calculateAgeFromTimestamp(Birthdate)
       }
     })
     setFeatures(f)
