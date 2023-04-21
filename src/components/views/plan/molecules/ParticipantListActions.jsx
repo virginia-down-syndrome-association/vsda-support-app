@@ -4,6 +4,8 @@ import { clearMatrixLookup } from '@/store/reducers/filters'
 
 export default function ParticipantListActions ({ onEvent, selectedFeatures, features }) {
   const { matrixLookup } = useSelector(state => state.filters)
+  const { view } = useSelector(state => state.map)
+
   const allSelected = selectedFeatures.length === features.length
   const dispatch = useDispatch()
 
@@ -13,6 +15,8 @@ export default function ParticipantListActions ({ onEvent, selectedFeatures, fea
 
   const clearDistanceFilters = () => {
     dispatch(clearMatrixLookup())
+    const cr = view.map.findLayerById('circleRoutes')
+    if (cr) cr.destroy()
   }
 
   const handleExportToCsv = () => {
@@ -21,7 +25,7 @@ export default function ParticipantListActions ({ onEvent, selectedFeatures, fea
       const travelTime = matrixLookup.filter((item) => item.id === feature.id)
       return {
         ...feature,
-        travelTime: travelTime ? travelTime[0].duration : ''
+        travelTime: (travelTime && travelTime.length > 0) ? travelTime[0].duration : ''
       }
     })
 
@@ -35,7 +39,7 @@ export default function ParticipantListActions ({ onEvent, selectedFeatures, fea
     // Create a link element to trigger download
     const link = document.createElement('a')
     link.setAttribute('href', URL.createObjectURL(blob))
-    link.setAttribute('download', 'data.csv')
+    link.setAttribute('download', 'participants.csv')
     document.body.appendChild(link)
     link.click()
     document.body.removeChild(link)

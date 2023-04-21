@@ -37,14 +37,6 @@ export default function TabController () {
         content: 'Participant List'
       },
       render: () => getParticipantList()
-    },
-    {
-      menuItem: {
-        key: 'active-queue1',
-        icon: 'user circle outline',
-        content: 'Results'
-      },
-      render: () => getParticipantList()
     }
   ]
 
