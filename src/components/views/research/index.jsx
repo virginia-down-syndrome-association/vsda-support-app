@@ -59,12 +59,11 @@ export default function Research (props) {
 
   useEffect(() => {
     if (currentParticipant && view?.ready) {
-      console.log('changing')
       const { coordinates: [lat, lng] } = currentParticipant
       const options = {
         center: [lng, lat],
-        duration: 3500, // animation is 10 times slower than default
-        easing: 'ease-in-out', // easing function to slow down when reaching the target
+        duration: 3500,
+        easing: 'ease-in-out',
         scale: 224000
       }
       view.goTo(options)

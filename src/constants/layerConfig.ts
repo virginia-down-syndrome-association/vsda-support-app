@@ -49,7 +49,6 @@ export const constituents: FeatureLayerConfig = {
   // }
 }
 
-
 export const soviCounties: FeatureLayerConfig = {
   props: {
     url: 'https://services3.arcgis.com/ZvidGQkLaDJxRSJ2/ArcGIS/rest/services/CDC_Social_Vulnerability_Index_2018/FeatureServer/1',
@@ -64,10 +63,24 @@ export const soviTracts: FeatureLayerConfig = {
   }
 }
 
-export const affiliateCounts: FeatureLayerConfig = {
+export const affiliateCounties: FeatureLayerConfig = {
   props: {
     url: 'https://services3.arcgis.com/eyU1lVcSnKSGItET/arcgis/rest/services/Virginia_Counties/FeatureServer/0',
     id: 'affiliateCounts' // service_area
+  }
+}
+
+export const schoolDistricts: FeatureLayerConfig = {
+  props: {
+    url: 'https://services3.arcgis.com/eyU1lVcSnKSGItET/arcgis/rest/services/vdsa_boundary_layers/FeatureServer/1',
+    id: 'schoolDistricts' // service_area
+  }
+}
+
+export const schools: FeatureLayerConfig = {
+  props: {
+    url: 'https://services3.arcgis.com/eyU1lVcSnKSGItET/arcgis/rest/services/vdsa_boundary_layers/FeatureServer/0',
+    id: 'schoolDistricts' // service_area
   }
 }
 

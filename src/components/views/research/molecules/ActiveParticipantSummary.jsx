@@ -1,15 +1,48 @@
 import { Header, Card, Grid, Statistic } from 'semantic-ui-react'
-import { useSelector } from 'react-redux'
 import { calculateAgeFromTimestamp, getMonth } from '@/utilities/filters'
+import { queryFeatures } from '@esri/arcgis-rest-feature-service'
+import { useEffect, useState, useCallback } from 'react'
+import { useSelector } from 'react-redux'
+import { schoolDistricts } from '@/constants/layerConfig'
+import useTokenHelper from '@/utilities/hooks/useTokenHelper'
 import '../style.scss'
 
 export default function ProfileCard () {
   const { currentParticipant } = useSelector(state => state.research)
+  const { authentication } = useTokenHelper()
+  const [schoolDistrict, setSchoolDistrict] = useState(null)
 
   const calcStartDate = (timestamp) => {
     const date = new Date(timestamp)
     return `${getMonth(date)}/${date.getDate()}/${date.getFullYear()}`
   }
+
+  const getSchoolDistrict = useCallback(async (coordinates) => {
+    const fields = ['NAME']
+    const res = await queryFeatures({
+      url: schoolDistricts.props.url,
+      f: 'json',
+      outfields: fields,
+      returnGeometry: false,
+      geometryType: 'esriGeometryPoint',
+      geometry: {
+        spatialReference: { wkid: 4326 },
+        x: coordinates[1],
+        y: coordinates[0]
+      },
+      spatialRel: 'esriSpatialRelIntersects',
+      authentication
+    })
+    const { NAME } = res?.features[0]?.attributes
+    setSchoolDistrict(NAME)
+  })
+
+  useEffect(() => {
+    if (currentParticipant) {
+      const { coordinates } = currentParticipant
+      getSchoolDistrict(coordinates)
+    }
+  }, [currentParticipant])
 
   return (
     <>{ currentParticipant &&
@@ -46,8 +79,12 @@ export default function ProfileCard () {
             </Grid.Row>
             <Grid.Row className='rowSpan'>
               <Header as='h5' className='cardHeader' style={{ margin: '0px', whiteSpace: 'nowrap' }}>County: </Header>
-              <div>{ currentParticipant.County}</div>
+              <div style={{ margin: '0px', whiteSpace: 'nowrap' }}>{ currentParticipant.County}</div>
             </Grid.Row>
+            { schoolDistrict && <Grid.Row className='rowSpan'>
+              <Header as='h5' className='cardHeader' style={{ margin: '0px', whiteSpace: 'nowrap' }}>School District: </Header>
+              <div style={{ margin: '0px', whiteSpace: 'nowrap' }}>{ schoolDistrict }</div>
+            </Grid.Row>}
           </Grid.Column>
         </Grid>
       </Card>}
