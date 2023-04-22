@@ -12,11 +12,6 @@ export default function ProfileCard () {
   const { authentication } = useTokenHelper()
   const [schoolDistrict, setSchoolDistrict] = useState(null)
 
-  const calcStartDate = (timestamp) => {
-    const date = new Date(timestamp)
-    return `${getMonth(date)}/${date.getDate()}/${date.getFullYear()}`
-  }
-
   const getSchoolDistrict = useCallback(async (coordinates) => {
     const fields = ['NAME']
     const res = await queryFeatures({
@@ -36,6 +31,11 @@ export default function ProfileCard () {
     const { NAME } = res?.features[0]?.attributes
     setSchoolDistrict(NAME)
   })
+
+  const calcStartDate = (timestamp) => {
+    const date = new Date(timestamp)
+    return `${getMonth(date)}/${date.getDate()}/${date.getFullYear()}`
+  }
 
   useEffect(() => {
     if (currentParticipant) {

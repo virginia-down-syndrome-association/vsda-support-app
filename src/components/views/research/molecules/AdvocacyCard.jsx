@@ -4,7 +4,7 @@ import '../style.scss'
 export default function AdvocacyCard () {
   return (
     <>
-      <Accordion exclusive={false} styled>
+      <Accordion exclusive={false} styled style={{ width: '100%' }}>
         <Accordion.Title
           active={false}
           index={0}

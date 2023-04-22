@@ -7,7 +7,7 @@ export default function MedicalCard () {
   return (
     <>
       <div>
-        <Accordion styled>
+        <Accordion styled style={{ width: '100%' }}>
           <Accordion.Title
             active={false}
             index={0}
