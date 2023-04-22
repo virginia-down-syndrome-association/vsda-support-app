@@ -1,10 +1,15 @@
 import { Header, Card, Grid, Statistic } from 'semantic-ui-react'
 import { useSelector } from 'react-redux'
-import { calculateAgeFromTimestamp } from '@/utilities/filters'
+import { calculateAgeFromTimestamp, getMonth } from '@/utilities/filters'
 import '../style.scss'
 
 export default function ProfileCard () {
   const { currentParticipant } = useSelector(state => state.research)
+
+  const calcStartDate = (timestamp) => {
+    const date = new Date(timestamp)
+    return `${getMonth(date)}/${date.getDate()}/${date.getFullYear()}`
+  }
 
   return (
     <>{ currentParticipant &&
@@ -33,15 +38,15 @@ export default function ProfileCard () {
             </Grid.Row>
             <Grid.Row className='rowSpan'>
               <Header as='h5' className='cardHeader summaryItem' style={{ margin: '0px' }}>Added to platform on: </Header>
-              <div>12.31.2022</div>
+              <div>{calcStartDate(currentParticipant.CreationDate)}</div>
             </Grid.Row>
             <Grid.Row className='rowSpan'>
               <Header as='h5' className='cardHeader' style={{ margin: '0px' }}>Zip: </Header>
-              <div>22401</div>
+              <div>{currentParticipant.PostalCode}</div>
             </Grid.Row>
             <Grid.Row className='rowSpan'>
-              <Header as='h5' className='cardHeader' style={{ margin: '0px' }}>County: </Header>
-              <div>City of Fredericksburg</div>
+              <Header as='h5' className='cardHeader' style={{ margin: '0px', whiteSpace: 'nowrap' }}>County: </Header>
+              <div>{ currentParticipant.County}</div>
             </Grid.Row>
           </Grid.Column>
         </Grid>

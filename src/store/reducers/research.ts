@@ -5,6 +5,7 @@ import { type Participant, type ProspectiveParticipant } from './participants'
 type ResearchParticipant = Participant & {
   County: string
   CreationDate: any
+  PostalCode: number
   Coordinates: [number, number]
 }
 

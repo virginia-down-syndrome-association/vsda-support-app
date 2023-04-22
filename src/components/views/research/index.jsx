@@ -30,6 +30,7 @@ const bootResearchData = async (authentication) => {
         ConstituentNumber: properties.ConstituentNumber,
         County: properties.County,
         CreationDate: properties.CreationDate,
+        PostalCode: properties.PostalCode,
         coordinates: [geometry.coordinates[1], geometry.coordinates[0]]
 
       }

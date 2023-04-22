@@ -1,50 +1,37 @@
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState } from 'react'
 import { Dropdown } from 'semantic-ui-react'
-import { agolItems } from '@/constants/appConfig'
-import { queryFeatures } from '@esri/arcgis-rest-feature-service'
-import useTokenHelper from '@/utilities/hooks/useTokenHelper'
+import { useSelector, useDispatch } from 'react-redux'
+import { setCurrentParticipant } from '@/store/reducers/research'
 import '../style.scss'
 
 export default function ResearchSelector (props) {
-  const { authentication } = useTokenHelper()
+  const dispatch = useDispatch()
+  const { participants, currentParticipant } = useSelector(state => state.research)
   const [options, setOptions] = useState([])
 
-  const configureOptions = (features) => {
-    const options = features.map(({ attributes }) => {
+  useEffect(() => {
+    const opts = participants.map(({ id, FirstName, LastName }) => {
       return {
-        key: attributes.OBJECTID,
-        text: `${attributes.FirstName} ${attributes.LastName}`,
-        value: attributes.OBJECTID
+        key: id,
+        value: id,
+        text: `${FirstName} ${LastName}`
       }
     })
-    setOptions(options)
-  }
-
-  const addParticipantData = useCallback(async () => {
-    const fields = ['OBJECTID', 'FirstName', 'LastName']
-    const { features } = await queryFeatures({
-      url: agolItems.rest.constituents,
-      f: 'json',
-      outfields: fields,
-      returnGeometry: true,
-      authentication
-    })
-    configureOptions(features)
-  })
-
-  useEffect(() => {
-    addParticipantData()
-  }, [authentication])
+    setOptions(opts)
+  }, [participants])
 
   return (
     <>
-      <Dropdown
-        placeholder='Select Participant'
-        search
-        selection
-        options={options}
-      />
-      {/* <SliderView onSliderValuesChange={handleChange} sliderMinValue={0} sliderMaxValue={90} /> */}
+      { currentParticipant &&
+        <Dropdown
+          placeholder='Select Participant'
+          search
+          selection
+          options={options}
+          value={currentParticipant.id}
+          onChange={(e, { value }) => dispatch(setCurrentParticipant(value))}
+        />
+      }
     </>
   )
 }
