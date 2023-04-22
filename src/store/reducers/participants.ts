@@ -3,7 +3,8 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 import { type SexType, type ResidencyStatus } from '../../typings/rest'
 
 // types and variables
-type Participant = {
+export type Participant = {
+  id: number
   FirstName: number
   LastName: number
   Birthdate: any
@@ -13,7 +14,7 @@ type Participant = {
   coordinates: [number, number]
 }
 
-type ProspectiveParticipant = {
+export type ProspectiveParticipant = {
   status: number
   residency: ResidencyStatus
   participant_consent: boolean
