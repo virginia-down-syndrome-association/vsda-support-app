@@ -1,6 +1,6 @@
 import { Dropdown, Form } from 'semantic-ui-react'
 import { useSelector } from 'react-redux'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { addIsochroneLayer, generateIsochrone } from '@/utilities/maps'
 import '../style.scss'
 
@@ -14,6 +14,10 @@ export default function RangeSelector (props) {
     { key: 2, text: '60 mins', value: 60 },
     { key: 3, text: '90 mins', value: 90 }
   ]
+
+  useEffect(() => {
+    setCurrentRange(0)
+  }, [currentParticipant])
 
   const handleChange = async (value) => {
     setCurrentRange(value)

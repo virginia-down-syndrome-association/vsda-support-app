@@ -6,6 +6,7 @@ import '../style.scss'
 
 export default function ResearchSelector (props) {
   const dispatch = useDispatch()
+  const { view } = useSelector(state => state.map)
   const { participants, currentParticipant } = useSelector(state => state.research)
   const [options, setOptions] = useState([])
 
@@ -20,16 +21,22 @@ export default function ResearchSelector (props) {
     setOptions(opts)
   }, [participants])
 
+  const handleChange = (value) => {
+    const cr = view?.map?.findLayerById('isochrone')
+    if (cr) cr.destroy()
+    dispatch(setCurrentParticipant(value))
+  }
+
   return (
     <>
-      { currentParticipant &&
+      { currentParticipant && view &&
         <Dropdown
           placeholder='Select Participant'
           search
           selection
           options={options}
           value={currentParticipant.id}
-          onChange={(e, { value }) => dispatch(setCurrentParticipant(value))}
+          onChange={(e, { value }) => handleChange(value)}
         />
       }
     </>
