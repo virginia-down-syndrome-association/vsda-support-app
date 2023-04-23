@@ -114,7 +114,10 @@
 .tabContent__container{
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
+  flex: 1 1 auto;
+  overflow-y: auto;
+  height: 0px;
+  // flex-grow: 1;
   border-left: 1px solid lightgray;
   border-bottom: 1px solid lightgray;
   border-right: 1px solid lightgray;

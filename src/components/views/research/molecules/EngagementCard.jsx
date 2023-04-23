@@ -16,6 +16,12 @@ const EventCard = ({ id, event }) => {
           <Card.Header className='cardHeader'>{event.name}</Card.Header>
           <Card.Meta>Description: {event.description}</Card.Meta>
           <Card.Meta>Starting at: {event.startDate}</Card.Meta>
+          <Card.Meta>Description: {event.description}</Card.Meta>
+          <Card.Meta>Starting at: {event.startDate}</Card.Meta>
+          <Card.Meta>Description: {event.description}</Card.Meta>
+          <Card.Meta>Starting at: {event.startDate}</Card.Meta>
+          <Card.Meta>Description: {event.description}</Card.Meta>
+          <Card.Meta>Starting at: {event.startDate}</Card.Meta>
           {/* <Card.Meta>Closing around: {event.endDate}</Card.Meta> */}
         </Card.Content>
       </Card>
