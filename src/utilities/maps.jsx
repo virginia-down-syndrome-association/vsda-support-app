@@ -19,6 +19,26 @@ import { setLoadingStatus } from '@/store/reducers/notifications'
 
 const app = {}
 
+export const generateIsochrone = async ({ lat, lng, travelTime, view }) => {
+  const response = await fetch('http://localhost:3000/isochrone', {
+    method: 'POST',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      location: {
+        lat,
+        lng
+      },
+      mode: 'car',
+      travelTime
+    })
+  })
+  const data = await response.json()
+  return data
+}
+
 const generateMatrixFromParticipants = async ({ latitude, longitude }) => {
   const { selectedFeatures, currentFeatures } = store.getState().filters
   const destinations = selectedFeatures.map((id) => {
@@ -121,6 +141,22 @@ export const handleLayerInstantiation = (view, layers) => {
   layers.forEach(layer => {
     addLayer(view, layer)
   })
+}
+
+export const addIsochroneLayer = (isochrone) => {
+  const { view } = store.getState().map
+
+  const blob = new Blob([JSON.stringify(isochrone)], {
+    type: 'application/json'
+  })
+  // URL reference to the blob
+  const url = URL.createObjectURL(blob)
+  // create new geojson layer using the blob url
+  const layer = new GeoJSONLayer({
+    url,
+    id: 'isochrone'
+  })
+  view.map.add(layer, 0)
 }
 
 const handleCircleRoutes = (circleRoutes) => {

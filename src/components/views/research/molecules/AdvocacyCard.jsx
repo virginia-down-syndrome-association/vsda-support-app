@@ -8,7 +8,7 @@ export default function AdvocacyCard () {
         <Accordion.Title
           active={false}
           index={0}
-          onClick={console.log('test')}
+          onClick={console.log('')}
         >
           <Icon name='dropdown' />
           State Legislators

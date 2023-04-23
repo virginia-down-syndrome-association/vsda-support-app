@@ -84,6 +84,14 @@ export const schools: FeatureLayerConfig = {
   }
 }
 
+export const events: FeatureLayerConfig = {
+  props: {
+    url: 'https://services3.arcgis.com/eyU1lVcSnKSGItET/arcgis/rest/services/vsda_events/FeatureServer/0',
+    id: 'events' // service_area
+  }
+}
+
+
 // va_public_schools_k12 - GStandard (k-12 point schools) - Combined, Elementary, High, Middle
 // sld_lower
 // va_census_tracts
