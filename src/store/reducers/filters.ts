@@ -8,6 +8,8 @@ type AgePayload = {
 }
 
 type FilterState = {
+  cg: string
+  race: string
   minAge: number
   maxAge: number
   county: string
@@ -18,6 +20,8 @@ type FilterState = {
 }
 
 const initialState: FilterState = {
+  cg: 'all',
+  race: 'all',
   minAge: 0,
   maxAge: 100,
   county: 'all',
@@ -40,6 +44,12 @@ const filterSlice = createSlice({
     setCounty (state, action: PayloadAction<string>) {
       state.county = action.payload
     },
+    setRace (state, action: PayloadAction<string>) {
+      state.race = action.payload
+    },
+    setCG (state, action: PayloadAction<string>) {
+      state.cg = action.payload
+    },
     setSex (state, action: PayloadAction<string>) {
       state.sex = action.payload as SexType
     },
@@ -47,7 +57,6 @@ const filterSlice = createSlice({
       state = initialState
     },
     resetFilters (state, action: PayloadAction<string>) {
-      console.log('resetting filters')
       const updatedState = {
         ...state,
         minAge: 0,
@@ -86,6 +95,8 @@ export const {
   resetFilterState,
   resetFilters,
   setCurrentFeatures,
+  setRace,
+  setCG,
   clearCurrentFeatures,
   setSelectedFeatures,
   clearSelectedFeatures,

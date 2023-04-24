@@ -1,31 +1,56 @@
-import { Accordion, CardDescription, Icon, List, Card } from 'semantic-ui-react'
+import { Accordion, CardDescription, Icon, List, Card, Table, Button } from 'semantic-ui-react'
 import { useState, useEffect, useCallback } from 'react'
+import store from '@/store'
+import { setNotificationStatus } from '@/store/reducers/notifications'
 import { useSelector } from 'react-redux'
 import { queryFeatures } from '@esri/arcgis-rest-feature-service'
 import { schools, schoolDistricts, events } from '@/constants/layerConfig'
+import { generateDirections, addDirectionsLayer } from '@/utilities/maps'
 import useTokenHelper from '@/utilities/hooks/useTokenHelper'
+import { toast } from 'react-toastify'
 import '../style.scss'
 
-const EventCard = ({ id, event }) => {
-  console.log(id)
-  console.log(event)
+// const EventCard = ({ id, event }) => {
+//   return (
+//     <List.Item key={id} className="" onClick={() => { }}>
+//       <Card fluid className=''>
+//         <Card.Content>
+//           <Card.Header className='cardHeader'>{event.name}</Card.Header>
+//           <Card.Meta>Description: {event.description}</Card.Meta>
+//           <Card.Meta>Starting at: {event.startDate}</Card.Meta>
+//           <Card.Meta>Starting at: {event.startDate}</Card.Meta>
+//           {/* <Card.Meta>Closing around: {event.endDate}</Card.Meta> */}
+//         </Card.Content>
+//       </Card>
+//     </List.Item>
+//   )
+// }
+
+const handleDirection = async (destination) => {
+  const { currentParticipant } = store.getState().research
+  const { results, bbox, travelTime } = await generateDirections({
+    origin: [currentParticipant.coordinates[1], currentParticipant.coordinates[0]],
+    destination
+  })
+  addDirectionsLayer(results, bbox)
+}
+
+const EventRow = ({ id, event }) => {
   return (
-    <List.Item key={id} className="" onClick={() => {}}>
-      <Card fluid className=''>
-        <Card.Content>
-          <Card.Header className='cardHeader'>{event.name}</Card.Header>
-          <Card.Meta>Description: {event.description}</Card.Meta>
-          <Card.Meta>Starting at: {event.startDate}</Card.Meta>
-          <Card.Meta>Description: {event.description}</Card.Meta>
-          <Card.Meta>Starting at: {event.startDate}</Card.Meta>
-          <Card.Meta>Description: {event.description}</Card.Meta>
-          <Card.Meta>Starting at: {event.startDate}</Card.Meta>
-          <Card.Meta>Description: {event.description}</Card.Meta>
-          <Card.Meta>Starting at: {event.startDate}</Card.Meta>
-          {/* <Card.Meta>Closing around: {event.endDate}</Card.Meta> */}
-        </Card.Content>
-      </Card>
-    </List.Item>
+    <Table.Row key={id}>
+      <Table.Cell>
+        {event.name}
+      </Table.Cell>
+      <Table.Cell>
+        Starting at: {event.startDate}
+      </Table.Cell>
+      <Table.Cell textAlign='right'>
+        {event.description}
+      </Table.Cell>
+      <Table.Cell textAlign='right'>
+        <Button circular icon='car' size='mini' onClick={(evt, target) => handleDirection(event.coordinates)} />
+      </Table.Cell>
+    </Table.Row>
   )
 }
 
@@ -39,6 +64,7 @@ export default function EngagementCard() {
 
   const handleClick = (e, titleProps) => {
     const { index } = titleProps
+    if (index === activeIndex) return setActiveIndex(-1)
     setActiveIndex(index)
   }
 
@@ -135,16 +161,6 @@ export default function EngagementCard() {
       <div>
         <Accordion styled style={{ width: '100%' }}>
           <Accordion.Title
-            active={activeIndex === 0}
-            index={0}
-            onClick={handleClick}
-          >
-            <Icon name='dropdown' />
-            Public Schools (within current school district)
-          </Accordion.Title>
-          <Accordion.Content active={activeIndex === 0}>
-          </Accordion.Content>
-          <Accordion.Title
             active={activeIndex === 1}
             index={1}
             onClick={handleClick}
@@ -153,10 +169,35 @@ export default function EngagementCard() {
             Events (future)
           </Accordion.Title>
           <Accordion.Content active={activeIndex === 1}>
-            {evts?.length && evts.map(event => (
+            <Table basic='very' celled collapsing>
+              <Table.Header>
+                <Table.Row>
+                  <Table.HeaderCell>Name</Table.HeaderCell>
+                  <Table.HeaderCell>Starting Date/Time</Table.HeaderCell>
+                  <Table.HeaderCell>Description</Table.HeaderCell>
+                  <Table.HeaderCell></Table.HeaderCell>
+                </Table.Row>
+              </Table.Header>
+              <Table.Body>
+                {evts?.length && evts.map(event => (
+                  <EventRow key={event.id} event={event} />
+                ))}
+              </Table.Body>
+            </Table>
+            {/* {evts?.length && evts.map(event => (
               <EventCard key={event.id} event={event} />
-            ))
-            }
+            )) */}
+            {/* } */}
+          </Accordion.Content>
+          <Accordion.Title
+            active={activeIndex === 0}
+            index={0}
+            onClick={handleClick}
+          >
+            <Icon name='dropdown' />
+            Public Schools (within current school district)
+          </Accordion.Title>
+          <Accordion.Content active={activeIndex === 0}>
           </Accordion.Content>
         </Accordion>
       </div>

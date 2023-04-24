@@ -26,10 +26,10 @@ export default function CountyOverviewLegend (props) {
             <Item.Content verticalAlign='middle'> <Icon name='circle' className="dsanv" /> </Item.Content>
             <Item.Content content='Down Syndrome Association of Northern Virginia' verticalAlign='middle' />
           </Item>
-          <Item>
+          {/* <Item>
             <Item.Content verticalAlign='middle'> <Icon name='circle' className="other" /> </Item.Content>
             <Item.Content content='Other/Unknown' verticalAlign='middle' />
-          </Item>
+          </Item> */}
         </Item.Group>
       </div>
 

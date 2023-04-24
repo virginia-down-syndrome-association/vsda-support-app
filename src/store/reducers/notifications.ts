@@ -38,15 +38,25 @@ const notificationReducer = (
     case 'NOTIFICATION_STATE_STATUS_NOTIFICATION':
       const { status, msg } = action.payload as Status
       if (status === 'success') {
-        toast(msg, {
-          position: 'top-right',
+        toast('🦄 Wow so easy!', {
+          position: "top-center",
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
-          type: 'success',
-          theme: 'light'
-        })
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
+        // toast(msg, {
+        //   position: 'top-right',
+        //   autoClose: 5000,
+        //   hideProgressBar: false,
+        //   closeOnClick: true,
+        //   pauseOnHover: true,
+        //   type: 'success',
+        //   theme: 'light'
+        // })
       }
       else if (status === 'failure') {
         toast(msg, {

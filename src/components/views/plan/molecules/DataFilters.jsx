@@ -3,6 +3,8 @@ import { useSelector } from 'react-redux'
 import { Item, Message } from 'semantic-ui-react'
 import { updateConstituentFilter } from '@/utilities/filters'
 import CountySelector from '../atoms/CountySelector'
+import RaceSelector from '../atoms/RaceSelector'
+import CommunityGroupSelector from '../atoms/CommunitySelector'
 import ClearButton from '../atoms/ClearButton'
 import SexSelector from '../atoms/SexSelector'
 import AgeSelector from '../atoms/AgeSelector'
@@ -61,6 +63,24 @@ export default function DataFilters (props) {
             <Item.Meta>Filter participants by sex</Item.Meta>
             <Item.Description>
               <SexSelector />
+            </Item.Description>
+          </Item.Content>
+        </Item>
+        <Item>
+          <Item.Content>
+            {/* <Item.Header as='a'>Filter participants by age</Item.Header> */}
+            <Item.Meta>Filter participants by Race</Item.Meta>
+            <Item.Description>
+              <RaceSelector />
+            </Item.Description>
+          </Item.Content>
+        </Item>
+        <Item>
+          <Item.Content>
+            {/* <Item.Header as='a'>Filter participants by age</Item.Header> */}
+            <Item.Meta>Filter participants by Community Groups</Item.Meta>
+            <Item.Description>
+              <CommunityGroupSelector />
             </Item.Description>
           </Item.Content>
         </Item>

@@ -34,7 +34,7 @@ export const makeAgeToDate = (minAge, maxAge) => {
   }
 }
 export const updateConstituentFilter = (view) => {
-  const { filters: { minAge, maxAge, county, sex } } = store.getState()
+  const { filters: { minAge, maxAge, county, sex, cg, race } } = store.getState()
   const filterOptions = {
     filters: []
   }
@@ -42,6 +42,15 @@ export const updateConstituentFilter = (view) => {
     const countryWhere = `County = '${county}'`
     filterOptions.filters.push({ where: countryWhere })
   }
+  if (cg !== 'all') {
+    const cgWhere = `CommunityGroup = '${cg}'`
+    filterOptions.filters.push({ where: cgWhere })
+  }
+  if (race !== 'all') {
+    const raceWhere = `Race = '${race}'`
+    filterOptions.filters.push({ where: raceWhere })
+  }
+
   if (sex !== 'all') {
     const sexWhere = `Sex = '${sex}'`
     filterOptions.filters.push({ where: sexWhere })

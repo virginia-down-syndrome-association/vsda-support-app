@@ -6,9 +6,9 @@ const useFilterHelper = () => {
   const filters = useSelector(state => state.filters)
 
   if (filters) {
-    const { minAge, maxAge, county, sex } = filters
+    const { minAge, maxAge, county, sex, race, cg } = filters
     return {
-      filterSet: !(minAge === 0 && maxAge === 100 && county === 'all' && sex === 'all')
+      filterSet: !(minAge === 0 && maxAge === 100 && county === 'all' && sex === 'all' && cg === 'all' && race === 'all')
     }
   }
   return {

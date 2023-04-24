@@ -65,7 +65,7 @@ export default function ParticipantListActions ({ onEvent, selectedFeatures, fea
               <Icon name='download' />
               Download as csv
             </Button>
-            <Popup content='Clear to/from travel lines from map' position='right center' trigger={<Button icon disabled={ matrixLookup.length === 0} onClick={''} circular size='tiny'>
+            <Popup content='Clear to/from travel lines from map' position='right center' trigger={<Button icon disabled={ (matrixLookup && matrixLookup.length === 0) || false} onClick={''} circular size='tiny'>
               <Icon name='trash alternate outline' onClick={clearDistanceFilters} />
             </Button>} />
           </div>
