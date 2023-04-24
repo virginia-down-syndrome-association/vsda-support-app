@@ -55,7 +55,7 @@ const EventRow = ({ id, event }) => {
 }
 
 export default function EngagementCard() {
-  const [activeIndex, setActiveIndex] = useState(0)
+  const [activeIndex, setActiveIndex] = useState(1)
   const { currentParticipant } = useSelector(state => state.research)
   const [schoolDistrictGeometry, setSchoolDistrictGeometry] = useState(null)
   const [publicSchools, setSchools] = useState(null)

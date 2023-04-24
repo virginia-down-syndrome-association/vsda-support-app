@@ -105,6 +105,22 @@ export const house: FeatureLayerConfig = {
   }
 }
 
+export const hospitals: FeatureLayerConfig = {
+  props: {
+    url: 'https://services3.arcgis.com/eyU1lVcSnKSGItET/arcgis/rest/services/VDSA_Hospitals/FeatureServer/0',
+    id: 'hospitals'
+  }
+}
+
+export const specialists: FeatureLayerConfig = {
+  props: {
+    url: 'https://services3.arcgis.com/eyU1lVcSnKSGItET/arcgis/rest/services/vdsa_medical/FeatureServer/1',
+    id: 'specialists'
+  }
+}
+
+
+
 // va_public_schools_k12 - GStandard (k-12 point schools) - Combined, Elementary, High, Middle
 // sld_lower
 // va_census_tracts
